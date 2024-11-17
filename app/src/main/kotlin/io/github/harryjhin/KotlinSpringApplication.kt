@@ -1,4 +1,4 @@
-package blog.jinhyun.kotlinspring
+package io.github.harryjhin
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

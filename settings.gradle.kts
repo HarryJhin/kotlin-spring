@@ -12,7 +12,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "kotlin-spring"
-include("app")
+includeModules("app")
 includeModules("data")
 includeModules("domain")
 includeModules("model")

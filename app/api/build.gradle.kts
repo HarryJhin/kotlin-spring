@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.spring.app)
 }
 
-group = "io.github.harryjhin"
+group = "io.github.harryjhin.app.api"
 version = "0.0.1-SNAPSHOT"
 
 dependencies {

@@ -14,7 +14,6 @@ class KotlinSpringLibraryPlugin : Plugin<Project> {
             )
 
             configureKotlinJvm()
-            configureTestTask()
 
             dependencies {
                 add("implementation", libs.findLibrary("spring.context").get())

@@ -12,7 +12,6 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             )
 
             configureKotlinJvm()
-            configureTestTask()
         }
     }
 }

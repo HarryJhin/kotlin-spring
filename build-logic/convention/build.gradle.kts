@@ -20,5 +20,9 @@ gradlePlugin {
             id = "kotlin.spring.library"
             implementationClass = "KotlinSpringLibraryPlugin"
         }
+        register("kotlin-spring-test") {
+            id = "kotlin.spring.test"
+            implementationClass = "KotlinSpringTestPlugin"
+        }
     }
 }

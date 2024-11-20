@@ -13,8 +13,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "kotlin-spring"
 includeModules("app")
-includeModules("infra")
 includeModules("domain")
+includeModules("entity")
+includeModules("infra")
 includeModules("model")
 
 fun includeModules(prefix: String) {

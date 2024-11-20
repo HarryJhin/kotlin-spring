@@ -12,6 +12,10 @@ kotlin {
 
 gradlePlugin {
     plugins {
+        register("kotlin-library") {
+            id = "kotlin.library"
+            implementationClass = "KotlinLibraryPlugin"
+        }
         register("kotlin-spring-app") {
             id = "kotlin.spring.app"
             implementationClass = "KotlinSpringAppPlugin"

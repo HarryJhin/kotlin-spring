@@ -1,5 +1,6 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 class KotlinSpringAppPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -12,6 +13,10 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             )
 
             configureKotlinJvm()
+
+            dependencies {
+                add("implementation", libs.findLibrary("kotlin.reflect").get())
+            }
         }
     }
 }

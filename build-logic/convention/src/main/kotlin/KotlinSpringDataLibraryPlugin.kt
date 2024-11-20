@@ -20,6 +20,7 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
                 add("api", project(":entity:core"))
                 add("api", project(":model:core"))
                 add("implementation", project(":infra:database"))
+                add("implementation", libs.findLibrary("kotlin.reflect").get())
                 add("implementation", libs.findLibrary("spring.boot.starter.data.jpa").get())
             }
         }

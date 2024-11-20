@@ -16,6 +16,7 @@ class KotlinSpringLibraryPlugin : Plugin<Project> {
             configureKotlinJvm()
 
             dependencies {
+                add("implementation", libs.findLibrary("kotlin.reflect").get())
                 add("implementation", libs.findLibrary("spring.context").get())
             }
         }

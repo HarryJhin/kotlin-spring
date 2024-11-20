@@ -14,7 +14,9 @@ abstract class ROEntity {
 
     @[Column(name = "created_at") CreatedDate]
     var createdAt: LocalDateTime? = null
+        protected set
 
     @[Column(name = "created_by") CreatedBy]
     var createdBy: Long? = null
+        protected set
 }

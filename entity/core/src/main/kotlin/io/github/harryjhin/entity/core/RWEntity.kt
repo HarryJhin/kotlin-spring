@@ -14,7 +14,9 @@ abstract class RWEntity : ROEntity() {
 
     @[Column(name = "updated_at") LastModifiedDate]
     var updatedAt: LocalDateTime? = null
+        protected set
 
     @[Column(name = "updated_by") LastModifiedBy]
     var updatedBy: Long? = null
+        protected set
 }

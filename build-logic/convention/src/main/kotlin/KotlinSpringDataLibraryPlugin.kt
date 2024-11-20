@@ -8,6 +8,7 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
             plugins(
                 "java-library",
                 "org.jetbrains.kotlin.jvm",
+                "org.jetbrains.kotlin.plugin.jpa",
                 "org.jetbrains.kotlin.plugin.spring",
                 "org.springframework.boot",
                 "io.spring.dependency-management",
@@ -16,6 +17,8 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
             configureKotlinJvm()
 
             dependencies {
+                add("api", project(":entity:core"))
+                add("api", project(":model:core"))
                 add("implementation", project(":infra:database"))
                 add("implementation", libs.findLibrary("spring.boot.starter.data.jpa").get())
             }

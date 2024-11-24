@@ -1,8 +1,6 @@
 package io.github.harryjhin.filter
 
-import io.github.harryjhin.logId
-import io.github.harryjhin.initLogId
-import io.github.harryjhin.removeLogId
+import io.github.harryjhin.context.RequestIdContextHolder
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -14,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class RequestIdFilter : OncePerRequestFilter() {
 
-    private val log: Logger = LoggerFactory.getLogger(this::class.java)
+    private val log: Logger = LoggerFactory.getLogger(RequestIdFilter::class.java)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -22,11 +20,12 @@ class RequestIdFilter : OncePerRequestFilter() {
         filterChain: FilterChain,
     ) {
         try {
-            request.initLogId()
-            log.info("${request.logId} Request received...")
+            RequestIdContextHolder.setRequestId("[ID-${request.hashCode()}]")
+            log.debug("${RequestIdContextHolder.getRequestId()} Request Id Context Set")
             filterChain.doFilter(request, response)
         } finally {
-            request.removeLogId()
+            log.debug("${RequestIdContextHolder.getRequestId()} Request Id Context Clear")
+            RequestIdContextHolder.clear()
         }
     }
 }

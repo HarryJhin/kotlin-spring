@@ -13,6 +13,8 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             )
 
             configureKotlinJvm()
+            configureBootJar(true)
+            configureJar(false)
 
             dependencies {
                 add("implementation", libs.findLibrary("kotlin.reflect").get())

@@ -32,3 +32,15 @@ internal fun Project.configureTestTask() {
         useJUnitPlatform()
     }
 }
+
+internal fun Project.configureBootJar(enabled: Boolean = false) {
+    tasks.named("bootJar") {
+        this.enabled = enabled
+    }
+}
+
+internal fun Project.configureJar(enabled: Boolean = false) {
+    tasks.named("jar") {
+        this.enabled = enabled
+    }
+}

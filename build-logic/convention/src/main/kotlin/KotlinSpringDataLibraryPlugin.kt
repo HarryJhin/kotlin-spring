@@ -15,6 +15,8 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
             )
 
             configureKotlinJvm()
+            configureBootJar(false)
+            configureJar(true)
 
             dependencies {
                 add("api", project(":entity:core"))

@@ -34,6 +34,7 @@ io-spring-dependency-management = { id = "io.spring.dependency-management", vers
 
 # Plugins defined by this project
 kotlin-library = { id = "kotlin.library" }
+kotlin-library-test = { id = "kotlin.library.test" }
 kotlin-spring-app = { id = "kotlin.spring.app" }
 kotlin-spring-data-library = { id = "kotlin.spring.data.library" }
 kotlin-spring-library = { id = "kotlin.spring.library" }

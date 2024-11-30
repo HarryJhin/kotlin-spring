@@ -16,6 +16,10 @@ gradlePlugin {
             id = "kotlin.library"
             implementationClass = "KotlinLibraryPlugin"
         }
+        register("kotlin-library-test") {
+            id = "kotlin.library.test"
+            implementationClass = "KotlinLibraryTestPlugin"
+        }
         register("kotlin-spring-app") {
             id = "kotlin.spring.app"
             implementationClass = "KotlinSpringAppPlugin"

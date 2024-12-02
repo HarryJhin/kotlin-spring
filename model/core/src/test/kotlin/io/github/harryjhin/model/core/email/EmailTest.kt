@@ -8,7 +8,7 @@ class EmailTest {
     @Test
     fun `길이 제한`() {
         // given
-        val given = "a".repeat(100) + "@google.com"
+        val given = "a".repeat(256) + "@tester.com"
 
         // when
         assertFailsWith<IllegalArgumentException> {
@@ -19,7 +19,7 @@ class EmailTest {
     @Test
     fun `잘못된 도메인`() {
         // given
-        val given = "example@example.com"
+        val given = "example@example*com"
 
         // when
         assertFailsWith<IllegalArgumentException> {

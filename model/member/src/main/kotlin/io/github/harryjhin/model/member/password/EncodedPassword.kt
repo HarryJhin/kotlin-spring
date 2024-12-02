@@ -15,6 +15,10 @@ value class EncodedPassword(val value: String) {
         return PASSWORD_ENCODER.matches(rawPassword.value, value)
     }
 
+    override fun toString(): String {
+        return "*****"
+    }
+
     private companion object {
         val BCRYPT_PATTERN: Pattern = Pattern.compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}")
     }

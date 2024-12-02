@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.23"
-springboot = "3.3.2"
+springboot = "3.4.0"
 
 [libraries]
 h2 = { module = "com.h2database:h2" }

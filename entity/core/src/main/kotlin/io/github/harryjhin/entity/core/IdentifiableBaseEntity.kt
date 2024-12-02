@@ -39,14 +39,14 @@ import org.springframework.data.domain.Persistable
  * @see ModifiableBaseEntity
  */
 @MappedSuperclass
-abstract class IdentifiableBaseEntity<T> internal constructor() : Persistable<T> {
+abstract class IdentifiableBaseEntity<ID> internal constructor() : Persistable<ID> {
 
     @Id
     @JdbcTypeCode(SqlTypes.BIGINT)
     @Suppress("PropertyName")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, updatable = false)
-    protected var _id: T? = null
+    protected var _id: ID? = null
 
     /**
      * ### 엔티티 식별자
@@ -58,7 +58,7 @@ abstract class IdentifiableBaseEntity<T> internal constructor() : Persistable<T>
      * @throws EntityNotFoundException 엔티티가 아직 영속성 컨텍스트에 저장되어 있지 않은 경우
      */
     @get:JvmName("getId2")
-    val id: T
+    val id: ID
         get() = _id ?: throw EntityNotFoundException("아직 영속되지 않은 엔티티입니다.")
 
     /**
@@ -70,7 +70,7 @@ abstract class IdentifiableBaseEntity<T> internal constructor() : Persistable<T>
     @Transient
     private var _isNew: Boolean = true
 
-    final override fun getId(): T? = _id
+    final override fun getId(): ID? = _id
 
     /**
      * ### 새로운 엔티티 여부 반환

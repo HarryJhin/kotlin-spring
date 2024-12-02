@@ -1,39 +1,65 @@
 package io.github.harryjhin.infra.database
 
+import com.zaxxer.hikari.HikariDataSource
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.ImportResource
 import org.springframework.context.annotation.Primary
+import org.springframework.context.annotation.Profile
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy
 import javax.sql.DataSource
 
-@Configuration
-@EnableConfigurationProperties(ReadOnlyDataSourceProperties::class, ReadWriteDataSourceProperties::class)
+@Profile("!test")
+@Configuration(proxyBeanMethods = false)
 class DatabaseConfiguration {
 
     @Bean
+    @ConfigurationProperties(prefix = "datasource.read-only")
+    fun readOnlyDataSourceProperties(): DataSourceProperties = DataSourceProperties()
+
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.read-only.configuration")
     fun readOnlyDataSource(
-        properties: ReadOnlyDataSourceProperties,
-    ): DataSource = properties.toDataSource()
+        @Qualifier("readOnlyDataSourceProperties") properties: DataSourceProperties,
+    ): HikariDataSource = properties.initializeDataSourceBuilder()
+        .type(HikariDataSource::class.java)
+        .build().apply {
+            this.isReadOnly = true
+        }
 
     @Bean
+    @ConfigurationProperties(prefix = "datasource.read-write")
+    fun readWriteDataSourceProperties(): DataSourceProperties = DataSourceProperties()
+
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.read-write.configuration")
     fun readWriteDateSource(
-        properties: ReadWriteDataSourceProperties,
-    ): DataSource = properties.toDataSource()
+        @Qualifier("readWriteDataSourceProperties") readWriteDataSourceProperties: DataSourceProperties,
+    ): HikariDataSource = readWriteDataSourceProperties.initializeDataSourceBuilder()
+        .type(HikariDataSource::class.java)
+        .build().apply {
+            this.isReadOnly = false
+        }
 
     @Bean
+    @ConditionalOnBean(name = ["readOnlyDataSource", "readWriteDateSource"])
     fun routingDataSource(
-        @Qualifier("readOnlyDataSource") readOnlyDataSource: DataSource,
-        @Qualifier("readWriteDateSource") readWriteDataSource: DataSource,
-    ): DataSource = RoutingDataSource(
+        @Qualifier("readOnlyDataSource") readOnlyDataSource: HikariDataSource,
+        @Qualifier("readWriteDateSource") readWriteDateSource: HikariDataSource,
+    ): RoutingDataSource = RoutingDataSource(
         readOnlyDataSource = readOnlyDataSource,
-        readWriteDataSource = readWriteDataSource,
+        readWriteDataSource = readWriteDateSource,
     )
 
     @Bean
     @Primary
+    @ConditionalOnBean(name = ["routingDataSource"])
     fun dataSource(
-        @Qualifier("routingDataSource") routingDataSource: DataSource,
+        @Qualifier("routingDataSource") routingDataSource: RoutingDataSource,
     ): DataSource = LazyConnectionDataSourceProxy(routingDataSource)
 }

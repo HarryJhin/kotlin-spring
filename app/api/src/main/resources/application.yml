@@ -3,9 +3,9 @@ spring:
     name: kotlin-spring
   profiles:
     active: local
-  config:
-    import:
-      - classpath:application-datasource.yml
+    group:
+      local:
+        - db
 
 logging:
   level:

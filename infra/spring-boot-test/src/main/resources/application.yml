@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: test
-  config:
-    import:
-      - classpath:application-datasouce-test.yml
-
----
+    group:
+      test:
+        - db-test

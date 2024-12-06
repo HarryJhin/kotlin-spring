@@ -6,6 +6,17 @@ spring:
     group:
       local:
         - db
+      dev:
+        - db
+      prod:
+        - db
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local,dev
 
 logging:
   level:

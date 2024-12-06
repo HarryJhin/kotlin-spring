@@ -1,14 +1,12 @@
 package io.github.harryjhin.entity.member
 
 import io.github.harryjhin.entity.core.CreatableBaseEntity
+import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.password.EncodedPassword
 import io.github.harryjhin.model.member.password.RawPassword
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Index
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.Comment
 
@@ -21,12 +19,11 @@ import org.hibernate.annotations.Comment
 )
 class PasswordEntity internal constructor(
     builder: PasswordEntityBuilder,
-) : CreatableBaseEntity<Long>() {
+) : CreatableBaseEntity() {
 
     @Comment("회원 ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID", nullable = false)
-    var member: MemberEntity = builder.member!!
+    @Column(name = "MEMBER_ID", nullable = false)
+    var memberId: Long = builder.memberId!!.value
         protected set
 
     @Comment("비밀번호")
@@ -36,7 +33,7 @@ class PasswordEntity internal constructor(
 }
 
 class PasswordEntityBuilder internal constructor(
-    var member: MemberEntity? = null,
+    var memberId: MemberId? = null,
     var rawPassword: RawPassword? = null,
 ) {
 
@@ -47,7 +44,7 @@ class PasswordEntityBuilder internal constructor(
         }
 
     internal fun build(): PasswordEntity {
-        require(member != null) { "`member` 프로퍼티는 필수입니다." }
+        require(memberId != null) { "`member` 프로퍼티는 필수입니다." }
         require(rawPassword != null) { "`rawPassword` 프로퍼티는 필수입니다." }
         return PasswordEntity(this)
     }

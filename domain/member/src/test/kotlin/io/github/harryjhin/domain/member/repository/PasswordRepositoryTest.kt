@@ -1,7 +1,7 @@
 package io.github.harryjhin.domain.member.repository
 
-import io.github.harryjhin.entity.member.MemberEntity
 import io.github.harryjhin.entity.member.PasswordEntity
+import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.password.RawPassword
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -10,21 +10,18 @@ import kotlin.test.assertEquals
 
 @DataJpaTest
 class PasswordRepositoryTest @Autowired constructor(
-    private val memberRepository: MemberRepository,
     private val passwordRepository: PasswordRepository,
 ) {
 
     @Test
     fun `비밀번호 생성`() {
         // given
-        val member = MemberEntity()
         val password = PasswordEntity {
-            this.member = member
+            this.memberId = MemberId(1)
             this.rawPassword = RawPassword("password")
         }
 
         // when
-        memberRepository.save(member)
         val entity = passwordRepository.save(password)
 
         // then
@@ -37,16 +34,14 @@ class PasswordRepositoryTest @Autowired constructor(
     @Test
     fun `비밀번호 찾기`() {
         // given
-        val member = MemberEntity()
         val password = PasswordEntity {
-            this.member = member
+            this.memberId = MemberId(1)
             this.rawPassword = RawPassword("password")
         }
 
         // when
-        memberRepository.save(member)
         passwordRepository.save(password)
-        val entity = passwordRepository.getTopByMember_IdOrderByIdDesc(member.id)
+        val entity = passwordRepository.getFirstByMemberIdOrderByIdDesc(password.memberId)
 
         // then
         assertEquals(

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface PasswordRepository : JpaRepository<PasswordEntity, Long> {
 
-    fun getTopByMember_IdOrderByIdDesc(memberId: Long): PasswordProjection
+    fun getFirstByMemberIdOrderByIdDesc(memberId: Long): PasswordProjection
 }

@@ -1,10 +1,12 @@
 package io.github.harryjhin.domain.member.repository
 
-import io.github.harryjhin.entity.member.PasswordEntity
+import io.github.harryjhin.entity.password.PasswordEntity
 import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.password.RawPassword
+import io.github.harryjhin.model.password.EncodedPassword
+import io.github.harryjhin.model.password.PasswordStrength
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -13,12 +15,16 @@ class PasswordRepositoryTest @Autowired constructor(
     private val passwordRepository: PasswordRepository,
 ) {
 
+    private val strength = 10
+    private val passwordEncoder = BCryptPasswordEncoder(strength)
+
     @Test
     fun `비밀번호 생성`() {
         // given
         val password = PasswordEntity {
             this.memberId = MemberId(1)
-            this.rawPassword = RawPassword("password")
+            this.strength = PasswordStrength(this@PasswordRepositoryTest.strength)
+            this.encodedPassword = EncodedPassword(passwordEncoder.encode("password"))
         }
 
         // when
@@ -36,17 +42,17 @@ class PasswordRepositoryTest @Autowired constructor(
         // given
         val password = PasswordEntity {
             this.memberId = MemberId(1)
-            this.rawPassword = RawPassword("password")
-        }
+            this.strength = PasswordStrength(this@PasswordRepositoryTest.strength)
+            this.encodedPassword = EncodedPassword(passwordEncoder.encode("password"))
+        }.run(passwordRepository::save)
 
         // when
-        passwordRepository.save(password)
-        val entity = passwordRepository.getFirstByMemberIdOrderByIdDesc(password.memberId)
+        val entity = passwordRepository.findByMemberId(password.memberId)
 
         // then
         assertEquals(
             expected = password.password,
-            actual = entity.password,
+            actual = entity?.password,
         )
     }
 }

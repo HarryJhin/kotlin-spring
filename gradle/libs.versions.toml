@@ -19,6 +19,7 @@ spring-context = { module = "org.springframework:spring-context" }
 spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
 spring-security-crypto = { module = "org.springframework.security:spring-security-crypto" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
+spring-tx = { module = "org.springframework:spring-tx" }
 
 # build-logic
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

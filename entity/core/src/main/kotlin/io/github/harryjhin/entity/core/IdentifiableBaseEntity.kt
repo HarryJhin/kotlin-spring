@@ -1,14 +1,6 @@
 package io.github.harryjhin.entity.core
 
-import jakarta.persistence.Column
-import jakarta.persistence.EntityNotFoundException
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.MappedSuperclass
-import jakarta.persistence.PostLoad
-import jakarta.persistence.PrePersist
-import jakarta.persistence.Transient
+import jakarta.persistence.*
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.proxy.HibernateProxy
 import org.hibernate.type.SqlTypes
@@ -39,27 +31,16 @@ import org.springframework.data.domain.Persistable
  * @see ModifiableBaseEntity
  */
 @MappedSuperclass
-abstract class IdentifiableBaseEntity<ID> internal constructor() : Persistable<ID> {
+abstract class IdentifiableBaseEntity internal constructor() : Persistable<Long> {
 
     @Id
     @JdbcTypeCode(SqlTypes.BIGINT)
-    @Suppress("PropertyName")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, updatable = false)
-    protected var _id: ID? = null
+    var id: Long = 0
+        protected set
 
-    /**
-     * ### 엔티티 식별자
-     *
-     * 엔티티 식별자는 엔티티의 주요 식별자(primary key)를 나타냅니다.
-     * 엔티티 식별자는 엔티티가 영속성 컨텍스트에 저장되어 있는 경우에만 사용할 수 있습니다.
-     * 엔티티가 아직 영속성 컨텍스트에 저장되어 있지 않은 경우 `EntityNotFoundException`이 발생합니다.
-     *
-     * @throws EntityNotFoundException 엔티티가 아직 영속성 컨텍스트에 저장되어 있지 않은 경우
-     */
-    @get:JvmName("getId2")
-    val id: ID
-        get() = _id ?: throw EntityNotFoundException("아직 영속되지 않은 엔티티입니다.")
+    final override fun getId(): Long? = if (id == 0L) null else id
 
     /**
      * ### 새로운 엔티티 여부
@@ -69,8 +50,6 @@ abstract class IdentifiableBaseEntity<ID> internal constructor() : Persistable<I
      */
     @Transient
     private var _isNew: Boolean = true
-
-    final override fun getId(): ID? = _id
 
     /**
      * ### 새로운 엔티티 여부 반환
@@ -102,9 +81,9 @@ abstract class IdentifiableBaseEntity<ID> internal constructor() : Persistable<I
         val thisEffectiveClass =
             if (this is HibernateProxy) this.hibernateLazyInitializer.persistentClass else this.javaClass
         if (thisEffectiveClass != oEffectiveClass) return false
-        other as IdentifiableBaseEntity<*>
+        other as IdentifiableBaseEntity
 
-        return _id == other._id
+        return id == other.id
     }
 
     final override fun hashCode(): Int =

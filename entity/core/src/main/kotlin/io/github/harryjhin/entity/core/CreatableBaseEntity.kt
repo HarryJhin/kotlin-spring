@@ -2,9 +2,7 @@ package io.github.harryjhin.entity.core
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
-import jakarta.persistence.EntityNotFoundException
 import jakarta.persistence.MappedSuperclass
-import jakarta.persistence.Transient
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
@@ -27,16 +25,14 @@ import java.time.LocalDateTime
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class CreatableBaseEntity<T> : IdentifiableBaseEntity<T>() {
+abstract class CreatableBaseEntity(
+    createdAt: LocalDateTime = LocalDateTime.now(),
+) : IdentifiableBaseEntity() {
 
     @CreatedDate
     @Comment("생성일시")
     @Column(name = "CREATED_AT")
-    @Suppress("PropertyName")
     @JdbcTypeCode(SqlTypes.LOCAL_DATE_TIME)
-    protected var _createdAt: LocalDateTime? = null
-
-    @get:Transient
-    val createdAt: LocalDateTime
-        get() = _createdAt ?: throw EntityNotFoundException("아직 영속되지 않은 엔티티입니다.")
+    var createdAt: LocalDateTime = createdAt
+        protected set
 }

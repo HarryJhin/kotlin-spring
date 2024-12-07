@@ -16,7 +16,7 @@ import org.hibernate.annotations.Comment
     indexes = [
         Index(name = "IDX_PASSWORD_1", columnList = "MEMBER_ID", unique = true),
         Index(name = "IDX_PASSWORD_2", columnList = "STRENGTH"),
-        Index(name = "IDX_PASSWORD_3", columnList = "UPDATED_AT"),
+        Index(name = "IDX_PASSWORD_3", columnList = "MODIFIED_AT"),
     ],
 )
 class PasswordEntity internal constructor(

@@ -2,7 +2,7 @@ package io.github.harryjhin.entity.member
 
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
 import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.member.username.Username
+import io.github.harryjhin.model.member.Username
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Index
@@ -18,7 +18,7 @@ import jakarta.persistence.Table
 )
 class MemberEntity internal constructor(
     builder: MemberEntityBuilder,
-) : ModifiableBaseEntity<Long>() {
+) : ModifiableBaseEntity() {
 
     @Column(name = "USER_NAME", nullable = false)
     var username: String = builder.username!!.value

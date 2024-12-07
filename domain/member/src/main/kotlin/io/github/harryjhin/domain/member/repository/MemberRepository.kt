@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface MemberRepository : JpaRepository<MemberEntity, Long> {
 
+    fun findByUsername(username: String): MemberEntity?
+
     fun findByEmail(email: String): UsernameAndEmailProjection
 }

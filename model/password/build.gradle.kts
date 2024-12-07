@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.library.test)
 }
 
-group = "io.github.harryjhin.model.member"
+group = "io.github.harryjhin.model.password"
 
 dependencies {
 }

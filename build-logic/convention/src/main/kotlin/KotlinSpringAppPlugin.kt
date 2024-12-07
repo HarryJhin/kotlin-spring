@@ -17,6 +17,8 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             configureJar(false)
 
             dependencies {
+                add("implementation", project(":model:core"))
+
                 add("implementation", libs.findLibrary("kotlin.reflect").get())
             }
         }

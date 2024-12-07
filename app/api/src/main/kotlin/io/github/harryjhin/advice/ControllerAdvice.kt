@@ -1,6 +1,7 @@
 package io.github.harryjhin.advice
 
 import io.github.harryjhin.context.RequestIdContextHolder
+import io.github.harryjhin.model.core.exception.ResponseException
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -13,6 +14,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ControllerAdvice {
 
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
+
+    @ExceptionHandler(ResponseException::class)
+    fun handleServerResponseException(
+        request: HttpServletRequest,
+        e: ResponseException,
+    ): String {
+        logger.error("${RequestIdContextHolder.getRequestId()} ${e.responseStatus} ${e.message}")
+        return "${RequestIdContextHolder.getRequestId()} ${e.responseStatus} ${e.responseMessage}"
+    }
 
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

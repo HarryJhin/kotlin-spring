@@ -6,10 +6,13 @@ spring:
     group:
       local:
         - db
+        - member
       dev:
         - db
+        - member
       prod:
         - db
+        - member
 
 ---
 

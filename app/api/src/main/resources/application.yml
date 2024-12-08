@@ -6,12 +6,18 @@ spring:
     group:
       local:
         - db
+        - redis
+        - cache
         - member
       dev:
         - db
+        - redis
+        - cache
         - member
       prod:
         - db
+        - redis
+        - cache
         - member
 
 ---

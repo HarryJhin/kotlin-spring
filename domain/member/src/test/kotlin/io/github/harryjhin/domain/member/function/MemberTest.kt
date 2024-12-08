@@ -19,6 +19,7 @@ class MemberTest @Autowired constructor(
     private val saveMember: SaveMemberUseCase,
     private val getAllMember: GetAllMember,
     private val entityManager: EntityManager,
+    private val getPassword: GetPasswordUseCase,
 ) {
 
     private lateinit var member: Member
@@ -64,6 +65,20 @@ class MemberTest @Autowired constructor(
         assertEquals(
             expected = 1,
             actual = entities.size,
+        )
+    }
+
+    @Test
+    fun `비밀번호 조회`() {
+        // given
+
+        // when
+        val password = getPassword(member.memberId).also(::println)
+
+        // then
+        assertEquals(
+            expected = member.memberId,
+            actual = password?.memberId,
         )
     }
 }

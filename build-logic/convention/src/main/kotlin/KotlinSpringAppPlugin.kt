@@ -20,6 +20,8 @@ class KotlinSpringAppPlugin : Plugin<Project> {
                 add("implementation", project(":model:core"))
 
                 add("implementation", libs.findLibrary("kotlin.reflect").get())
+
+                add("developmentOnly", libs.findLibrary("spring.boot.devtools").get())
             }
         }
     }

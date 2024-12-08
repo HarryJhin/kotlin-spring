@@ -25,3 +25,5 @@ value class Email(val value: String) {
         val PATTERN: Pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$")
     }
 }
+
+fun String.toEmail(): Email = Email(this)

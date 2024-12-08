@@ -18,3 +18,5 @@ value class RawPassword(val value: String) {
         val PATTERN: Pattern = Pattern.compile("^.{8,64}$")
     }
 }
+
+fun String.toRawPassword(): RawPassword = RawPassword(this)

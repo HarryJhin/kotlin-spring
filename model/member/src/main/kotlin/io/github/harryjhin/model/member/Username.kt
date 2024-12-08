@@ -18,3 +18,5 @@ value class Username(val value: String) {
         val PATTERN: Pattern = Pattern.compile("^[a-zA-Z0-9]{4,20}$")
     }
 }
+
+fun String.toUsername(): Username = Username(this)

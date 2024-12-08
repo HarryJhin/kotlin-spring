@@ -14,3 +14,5 @@ value class Name(val value: String) {
         return value
     }
 }
+
+fun String.toName(): Name = Name(this)

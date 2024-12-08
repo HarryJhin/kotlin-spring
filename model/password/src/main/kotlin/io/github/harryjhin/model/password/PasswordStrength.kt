@@ -11,3 +11,5 @@ value class PasswordStrength(val value: Int) {
         return "*****"
     }
 }
+
+fun Int.toPasswordStrength(): PasswordStrength = PasswordStrength(this)

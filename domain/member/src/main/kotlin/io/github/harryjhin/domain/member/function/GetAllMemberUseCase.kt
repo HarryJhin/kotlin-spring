@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = true)
-class GetAllMember(
+class GetAllMemberUseCase(
     private val memberRepository: MemberRepository,
 ) {
 

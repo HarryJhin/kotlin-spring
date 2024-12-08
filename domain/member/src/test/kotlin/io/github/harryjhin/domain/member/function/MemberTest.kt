@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 class MemberTest @Autowired constructor(
     private val getMember: GetMemberUseCase,
     private val saveMember: SaveMemberUseCase,
-    private val getAllMember: GetAllMember,
+    private val getAllMember: GetAllMemberUseCase,
     private val entityManager: EntityManager,
     private val getPassword: GetPasswordUseCase,
 ) {

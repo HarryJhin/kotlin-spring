@@ -1,14 +1,10 @@
 package io.github.harryjhin.entity.core
 
-import jakarta.persistence.Column
-import jakarta.persistence.EntityListeners
-import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.*
 import org.hibernate.annotations.Comment
-import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.type.SqlTypes
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDateTime
+import java.time.Instant
 
 /**
  * ### 생성 가능한 기본 엔티티
@@ -26,13 +22,13 @@ import java.time.LocalDateTime
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class CreatableBaseEntity(
-    createdAt: LocalDateTime = LocalDateTime.now(),
+    createdAt: Instant = Instant.now(),
 ) : IdentifiableBaseEntity() {
 
     @CreatedDate
     @Comment("생성일시")
     @Column(name = "CREATED_AT")
-    @JdbcTypeCode(SqlTypes.LOCAL_DATE_TIME)
-    var createdAt: LocalDateTime = createdAt
+    @Temporal(TemporalType.TIMESTAMP)
+    var createdAt: Instant = createdAt
         protected set
 }

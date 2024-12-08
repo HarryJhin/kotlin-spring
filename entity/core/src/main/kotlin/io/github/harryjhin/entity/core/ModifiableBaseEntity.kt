@@ -14,8 +14,8 @@ abstract class ModifiableBaseEntity(
 
     @LastModifiedDate
     @Comment("수정일시")
-    @Column(name = "MODIFIED_AT")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "MODIFIED_AT", nullable = false)
     var modifiedAt: Instant = modifiedAt
         protected set
 }

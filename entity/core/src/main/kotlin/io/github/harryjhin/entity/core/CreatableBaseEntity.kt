@@ -27,8 +27,8 @@ abstract class CreatableBaseEntity(
 
     @CreatedDate
     @Comment("생성일시")
-    @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     var createdAt: Instant = createdAt
         protected set
 }

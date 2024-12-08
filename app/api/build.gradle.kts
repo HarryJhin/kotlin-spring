@@ -8,6 +8,7 @@ version = "0.0.1-SNAPSHOT"
 
 dependencies {
     implementation(projects.domain.member)
+    implementation(projects.infra.cache)
 
     implementation(libs.spring.boot.starter.logging)
     implementation(libs.spring.boot.starter.web)

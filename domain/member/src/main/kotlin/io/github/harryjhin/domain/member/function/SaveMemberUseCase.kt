@@ -1,7 +1,7 @@
 package io.github.harryjhin.domain.member.function
 
 import io.github.harryjhin.domain.member.model.Member
-import io.github.harryjhin.domain.member.extension.toMember
+import io.github.harryjhin.domain.member.model.toMember
 import io.github.harryjhin.domain.member.property.PasswordProperties
 import io.github.harryjhin.domain.member.repository.MemberRepository
 import io.github.harryjhin.domain.member.repository.PasswordRepository
@@ -31,9 +31,7 @@ class SaveMemberUseCase(
         rawPassword: RawPassword = RawPassword("password"),
         email: Email = Email("tester@gmail.com"),
     ): Member {
-        if (isExist(username)) {
-            throw IllegalArgumentException("username 중복입니다. 다른 username을 입력해주세요.")
-        }
+        requireNonExist(username) { "username 중복입니다. 다른 username을 입력해주세요." }
 
         val member = MemberEntity {
             this.username = username
@@ -49,10 +47,13 @@ class SaveMemberUseCase(
         return member.toMember()
     }
 
-    private fun isExist(
+    private fun requireNonExist(
         username: Username,
-    ): Boolean {
-        return getMember(username) != null
+        lazyMessage: () -> Any,
+    ) {
+        if (getMember(username) != null) {
+            throw IllegalArgumentException(lazyMessage().toString())
+        }
     }
 
     private fun RawPassword.toEncodedPassword(): EncodedPassword = EncodedPassword(passwordEncoder.encode(value))

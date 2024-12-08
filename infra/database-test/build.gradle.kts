@@ -5,6 +5,6 @@ plugins {
 group = "io.github.harryjhin.data.database-test"
 
 dependencies {
-    implementation(libs.spring.data.jpa)
+    implementation(libs.spring.boot.starter.data.jpa)
     runtimeOnly(libs.h2)
 }

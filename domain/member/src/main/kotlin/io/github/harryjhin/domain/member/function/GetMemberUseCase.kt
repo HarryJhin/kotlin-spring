@@ -2,7 +2,7 @@ package io.github.harryjhin.domain.member.function
 
 import io.github.harryjhin.domain.member.model.Member
 import io.github.harryjhin.domain.member.exception.NoSuchMemberException
-import io.github.harryjhin.domain.member.extension.toMember
+import io.github.harryjhin.domain.member.model.toMember
 import io.github.harryjhin.domain.member.repository.MemberRepository
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username

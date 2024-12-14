@@ -3,6 +3,6 @@ spring:
     active: test
     group:
       test:
-        - db-test
+        - db-tester
         - redis-tester
         - member

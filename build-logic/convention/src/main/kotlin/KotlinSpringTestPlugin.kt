@@ -17,7 +17,7 @@ class KotlinSpringTestPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("kotlin.reflect").get())
-                add("testImplementation", project(":infra:spring-boot-test"))
+                add("testImplementation", project(":infra:spring-boot-tester"))
                 add("testImplementation", libs.findLibrary("kotlin.test.junit5").get())
                 add("testImplementation", libs.findLibrary("spring.boot.starter.test").get())
                 add("testRuntimeOnly", libs.findLibrary("junit.platform.launcher").get())

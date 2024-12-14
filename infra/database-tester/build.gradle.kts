@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.spring.library)
 }
 
-group = "io.github.harryjhin.data.database-test"
+group = "io.github.harryjhin.data.database-tester"
 
 dependencies {
     runtimeOnly(libs.h2)

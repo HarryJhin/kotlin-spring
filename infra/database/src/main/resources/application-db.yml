@@ -1,18 +1,3 @@
-spring:
-  config:
-    activate:
-      on-profile: local,dev,prod
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        highlight_sql: true
-        use_sql_comments: true
-    open-in-view: false
-
 datasource:
   read-only:
     url: ${RO_DATABASE_URL}
@@ -27,3 +12,34 @@ datasource:
 
 ---
 
+spring:
+  config:
+    activate:
+      on-profile: local,dev
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+    open-in-view: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        highlight_sql: false
+        use_sql_comments: false
+    open-in-view: false

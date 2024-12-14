@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: cms,local
+    group:
+      local:
+        - db
+        - redis
+        - cache
+        - member
+      dev:
+        - db
+        - redis
+        - cache
+        - member
+      prod:
+        - db
+        - redis
+        - cache
+        - member
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local,dev
+
+logging:
+  level:
+    io.github.harryjhin: DEBUG
+    root: info
+    sql: debug
+    web: debug
+
+---

@@ -1,12 +1,84 @@
 package io.github.harryjhin.domain.member.repository
 
-import io.github.harryjhin.domain.member.projection.UsernameAndEmailProjection
+import com.querydsl.jpa.impl.JPAQueryFactory
 import io.github.harryjhin.entity.member.MemberEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import io.github.harryjhin.entity.member.QMemberEntity.memberEntity
+import io.github.harryjhin.model.core.email.Email
+import io.github.harryjhin.model.member.MemberId
+import io.github.harryjhin.model.member.Username
+import jakarta.persistence.EntityManager
+import org.springframework.data.jpa.repository.support.JpaEntityInformation
+import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport
+import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
-interface MemberRepository : JpaRepository<MemberEntity, Long> {
+@Repository
+@Transactional(readOnly = true)
+class MemberRepository(
+    private val entityManager: EntityManager,
+    private val jpaQueryFactory: JPAQueryFactory,
+) : MemberQuerySyntax {
 
-    fun findByUsername(username: String): MemberEntity?
+    private val entityInformation: JpaEntityInformation<MemberEntity, *> =
+        JpaEntityInformationSupport.getEntityInformation(MemberEntity::class.java, entityManager)
 
-    fun findByEmail(email: String): UsernameAndEmailProjection
+    @Transactional
+    fun save(entity: MemberEntity): MemberEntity {
+        if (entityInformation.isNew(entity)) {
+            entityManager.persist(entity)
+            return entity
+        } else {
+            return entityManager.merge(entity)
+        }
+    }
+
+    fun findById(memberId: MemberId): MemberEntity? {
+        return jpaQueryFactory.selectFrom(memberEntity)
+            .where(
+                idEq(memberId)
+            )
+            .fetchOne()
+    }
+
+    fun findByUsername(username: Username): MemberEntity? {
+        return jpaQueryFactory.selectFrom(memberEntity)
+            .where(
+                usernameEq(username)
+            )
+            .fetchOne()
+    }
+
+    fun findByEmail(email: Email): MemberEntity? {
+        return jpaQueryFactory.selectFrom(memberEntity)
+            .where(
+                emailEq(email)
+            )
+            .fetchOne()
+    }
+
+    fun findAll(): List<MemberEntity> {
+        return jpaQueryFactory.selectFrom(memberEntity)
+            .fetch()
+    }
+
+    fun existsById(memberId: MemberId): Boolean {
+        return jpaQueryFactory.select(memberEntity.id)
+            .from(memberEntity)
+            .where(idEq(memberId))
+            .fetchFirst() != null
+    }
+
+    @Transactional
+    fun deleteById(memberId: MemberId): Long {
+        return jpaQueryFactory.delete(memberEntity)
+            .where(idEq(memberId))
+            .execute()
+    }
+
+    @Transactional
+    fun delete(entity: MemberEntity): Long {
+        return jpaQueryFactory.delete(memberEntity)
+            .where(memberEntity.id.eq(entity.id))
+            .execute()
+    }
 }

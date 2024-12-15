@@ -21,6 +21,21 @@ spring:
 ---
 
 spring:
+  application:
+    name: cms
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8082
+
+---
+
+spring:
   config:
     activate:
       on-profile: local,dev

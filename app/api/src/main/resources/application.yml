@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: kotlin-spring
   profiles:
     active: api,local
     group:
@@ -19,6 +17,21 @@ spring:
         - redis
         - cache
         - member
+
+---
+
+spring:
+  application:
+    name: api
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8080
 
 ---
 

@@ -8,7 +8,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class KotlinSpringDataLibraryPlugin : Plugin<Project> {
+class KotlinSpringDomainLibraryPlugin : Plugin<Project> {
+
     override fun apply(target: Project) {
         with(target) {
             plugins(
@@ -26,9 +27,8 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
             configureQueryDSL()
 
             dependencies {
-                add("api", project(":entity:core"))
+                add("api", project(":domain:core"))
                 add("api", project(":model:core"))
-                add("implementation", project(":infra:database"))
                 add("implementation", libs.findLibrary("kotlin.reflect").get())
                 add("implementation", libs.findLibrary("spring.boot.starter.data.jpa").get())
             }

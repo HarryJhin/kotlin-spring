@@ -28,6 +28,10 @@ gradlePlugin {
             id = "kotlin.spring.data.library"
             implementationClass = "KotlinSpringDataLibraryPlugin"
         }
+        register("kotlin-spring-domain-library") {
+            id = "kotlin.spring.domain.library"
+            implementationClass = "KotlinSpringDomainLibraryPlugin"
+        }
         register("kotlin-spring-library") {
             id = "kotlin.spring.library"
             implementationClass = "KotlinSpringLibraryPlugin"

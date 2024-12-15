@@ -7,10 +7,13 @@ embedded-redis = { module = "it.ozimov:embedded-redis", version = "0.7.2" }
 h2 = { module = "com.h2database:h2" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api" }
+jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
 postgresql = { module = "org.postgresql:postgresql" }
+querydsl-jpa = { module = "com.querydsl:querydsl-jpa" }
+querydsl-apt = { module = "com.querydsl:querydsl-apt" }
 spring-batch-test = { module = "org.springframework.batch:spring-batch-test" }
 spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
@@ -48,5 +51,6 @@ kotlin-library = { id = "kotlin.library" }
 kotlin-library-test = { id = "kotlin.library.test" }
 kotlin-spring-app = { id = "kotlin.spring.app" }
 kotlin-spring-data-library = { id = "kotlin.spring.data.library" }
+kotlin-spring-domain-library = { id = "kotlin.spring.domain.library" }
 kotlin-spring-library = { id = "kotlin.spring.library" }
 kotlin-spring-test = { id = "kotlin.spring.test" }

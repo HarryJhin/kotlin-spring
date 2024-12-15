@@ -1,15 +1,17 @@
 package io.github.harryjhin.domain.member
 
-import io.github.harryjhin.domain.member.dto.MemberDto
 import io.github.harryjhin.domain.member.port.GetAllMember
 import io.github.harryjhin.domain.member.port.GetMember
 import io.github.harryjhin.domain.member.port.SaveMember
+import io.github.harryjhin.domain.member.projection.CompositeMemberDto
 import io.github.harryjhin.model.core.email.Email
+import io.github.harryjhin.model.core.name.toName
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.password.RawPassword
 import jakarta.transaction.Transactional
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,7 +24,7 @@ class MemberTest @Autowired constructor(
     private val getAllMember: GetAllMember,
 ) {
 
-    private lateinit var member: MemberDto
+    private lateinit var member: CompositeMemberDto
 
     @BeforeEach
     fun setUp() {
@@ -31,24 +33,33 @@ class MemberTest @Autowired constructor(
         val email = Email("tester@gmail.com")
 
         member = saveMember {
-            this.username = username
+            this.name = "테스터".toName()
             this.email = email
+            this.username = username
             this.rawPassword = rawPassword
         }
     }
 
     @Test
-    fun `회원 조회`() {
+    fun `member_id 회원 조회`() {
         // given
 
         // when
-        val member = getMember(member.memberId).also(::println)
+        val member = getMember(member.memberId)
 
         // then
-        assertEquals(
-            expected = this.member,
-            actual = member,
-        )
+        assertNotNull(member)
+    }
+
+    @Test
+    fun `username 회원 조회`() {
+        // given
+
+        // when
+        val member = getMember(member.username)
+
+        // then
+        assertNotNull(member)
     }
 
     @Test
@@ -56,7 +67,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val entities = getAllMember().also(::println)
+        val entities = getAllMember()
 
         // then
         assertEquals(

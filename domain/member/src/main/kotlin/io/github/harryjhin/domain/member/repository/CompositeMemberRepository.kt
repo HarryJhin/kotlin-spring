@@ -19,15 +19,16 @@ class CompositeMemberRepository(
     MemberAuthenticationQuerySyntax {
 
     fun findByMemberId(memberId: MemberId): CompositeMemberDto? {
-        return jpaQueryFactory.select(
-            QCompositeMemberDto(
-                memberEntity.id,
-                memberEntity.name,
-                memberEntity.email,
-                memberAuthenticationEntity.username,
-                memberAuthenticationEntity.password,
-            )
-        ).from(memberEntity)
+        return jpaQueryFactory
+            .select(
+                QCompositeMemberDto(
+                    memberEntity.id,
+                    memberEntity.name,
+                    memberEntity.email,
+                    memberAuthenticationEntity.username,
+                    memberAuthenticationEntity.password,
+                )
+            ).from(memberEntity)
             .innerJoinMemberAuthentication()
             .where(
                 idEq(memberId)
@@ -36,15 +37,16 @@ class CompositeMemberRepository(
     }
 
     fun findByUsername(username: Username): CompositeMemberDto? {
-        return jpaQueryFactory.select(
-            QCompositeMemberDto(
-                memberEntity.id,
-                memberEntity.name,
-                memberEntity.email,
-                memberAuthenticationEntity.username,
-                memberAuthenticationEntity.password,
-            )
-        ).from(memberEntity)
+        return jpaQueryFactory
+            .select(
+                QCompositeMemberDto(
+                    memberEntity.id,
+                    memberEntity.name,
+                    memberEntity.email,
+                    memberAuthenticationEntity.username,
+                    memberAuthenticationEntity.password,
+                )
+            ).from(memberEntity)
             .innerJoinMemberAuthentication()
             .where(
                 usernameEq(username)
@@ -53,15 +55,16 @@ class CompositeMemberRepository(
     }
 
     fun findAll(): List<CompositeMemberDto> {
-        return jpaQueryFactory.select(
-            QCompositeMemberDto(
-                memberEntity.id,
-                memberEntity.name,
-                memberEntity.email,
-                memberAuthenticationEntity.username,
-                memberAuthenticationEntity.password,
-            )
-        ).from(memberEntity)
+        return jpaQueryFactory
+            .select(
+                QCompositeMemberDto(
+                    memberEntity.id,
+                    memberEntity.name,
+                    memberEntity.email,
+                    memberAuthenticationEntity.username,
+                    memberAuthenticationEntity.password,
+                )
+            ).from(memberEntity)
             .innerJoinMemberAuthentication()
             .fetch()
     }

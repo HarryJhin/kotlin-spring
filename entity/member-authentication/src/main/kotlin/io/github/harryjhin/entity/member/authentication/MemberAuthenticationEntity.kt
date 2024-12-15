@@ -3,8 +3,8 @@ package io.github.harryjhin.entity.member.authentication
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
-import io.github.harryjhin.model.password.EncodedPassword
-import io.github.harryjhin.model.password.PasswordStrength
+import io.github.harryjhin.model.member.EncodedPassword
+import io.github.harryjhin.model.member.PasswordStrength
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table

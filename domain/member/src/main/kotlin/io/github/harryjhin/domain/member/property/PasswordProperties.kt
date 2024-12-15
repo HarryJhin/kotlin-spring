@@ -1,6 +1,6 @@
 package io.github.harryjhin.domain.member.property
 
-import io.github.harryjhin.model.password.PasswordStrength
+import io.github.harryjhin.model.member.PasswordStrength
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "password")

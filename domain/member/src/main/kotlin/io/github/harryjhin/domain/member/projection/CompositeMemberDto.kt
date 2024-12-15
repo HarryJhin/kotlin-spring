@@ -9,8 +9,8 @@ import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.toMemberId
 import io.github.harryjhin.model.member.toUsername
-import io.github.harryjhin.model.password.EncodedPassword
-import io.github.harryjhin.model.password.toEncodedPassword
+import io.github.harryjhin.model.member.EncodedPassword
+import io.github.harryjhin.model.member.toEncodedPassword
 
 class CompositeMemberDto @QueryProjection constructor(
     memberId: Long,

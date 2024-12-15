@@ -7,7 +7,7 @@ import io.github.harryjhin.domain.member.projection.CompositeMemberDto
 import io.github.harryjhin.model.core.email.Email
 import io.github.harryjhin.model.core.name.toName
 import io.github.harryjhin.model.member.Username
-import io.github.harryjhin.model.password.RawPassword
+import io.github.harryjhin.model.member.RawPassword
 import jakarta.transaction.Transactional
 import kotlin.test.Test
 import kotlin.test.assertEquals

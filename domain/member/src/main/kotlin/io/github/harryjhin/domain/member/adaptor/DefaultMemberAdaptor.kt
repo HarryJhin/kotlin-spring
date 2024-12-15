@@ -14,7 +14,7 @@ import io.github.harryjhin.domain.member.repository.MemberRepository
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.toMemberId
-import io.github.harryjhin.model.password.toEncodedPassword
+import io.github.harryjhin.model.member.toEncodedPassword
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component

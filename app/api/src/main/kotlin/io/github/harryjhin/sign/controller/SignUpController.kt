@@ -1,5 +1,6 @@
 package io.github.harryjhin.sign.controller
 
+import io.github.harryjhin.domain.member.projection.CompositeMemberDto
 import io.github.harryjhin.sign.request.SignUpRequest
 import io.github.harryjhin.sign.service.SignUpService
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,10 +17,8 @@ class SignUpController(
     @PostMapping
     fun signUp(
         @RequestBody request: SignUpRequest,
-    ): String {
+    ): CompositeMemberDto {
 
-        signUpService.execute(request)
-
-        return "Sign up success"
+        return signUpService.execute(request)
     }
 }

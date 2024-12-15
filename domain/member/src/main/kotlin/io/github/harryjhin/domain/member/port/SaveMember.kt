@@ -7,9 +7,9 @@ import io.github.harryjhin.model.core.email.Email
 import io.github.harryjhin.model.core.name.Name
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
-import io.github.harryjhin.model.password.EncodedPassword
-import io.github.harryjhin.model.password.PasswordStrength
-import io.github.harryjhin.model.password.RawPassword
+import io.github.harryjhin.model.member.EncodedPassword
+import io.github.harryjhin.model.member.PasswordStrength
+import io.github.harryjhin.model.member.RawPassword
 
 interface SaveMember {
 

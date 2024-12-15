@@ -1,4 +1,4 @@
-package io.github.harryjhin.model.password
+package io.github.harryjhin.model.member
 
 @JvmInline
 value class PasswordStrength(val value: Int) {

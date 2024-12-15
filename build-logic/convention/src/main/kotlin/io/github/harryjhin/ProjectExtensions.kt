@@ -53,20 +53,20 @@ internal fun Project.configureQueryDSL() {
 
     dependencies {
         // JDK 17부터 javax 패키지가 jakarta 패키지로 변경됨
-        implementation(libs.findLibrary("querydsl.jpa").get()) {
+        implementation(libs.findLibrary("querydsl.jpa")) {
             artifact {
                 classifier = "jakarta"
             }
         }
-        implementation(libs.findLibrary("querydsl.apt").get()) {
+        implementation(libs.findLibrary("querydsl.apt")) {
             artifact {
                 classifier = "jakarta"
             }
         }
-        add("implementation", libs.findLibrary("jakarta-persistence.api").get())
-        add("implementation", libs.findLibrary("jakarta.annotation.api").get())
-        add("kapt", libs.findLibrary("spring.boot.configuration.processor").get())
-        kapt(libs.findLibrary("querydsl.apt").get()) {
+        implementation(libs.findLibrary("jakarta-persistence.api"))
+        implementation(libs.findLibrary("jakarta.annotation.api"))
+        kapt(libs.findLibrary("spring.boot.configuration.processor"))
+        kapt(libs.findLibrary("querydsl.apt")) {
             artifact {
                 classifier = "jakarta"
             }

@@ -41,7 +41,7 @@ class MemberAuthenticationEntityBuilder internal constructor(
     var strength: PasswordStrength? = null,
     var password: EncodedPassword? = null,
 ) {
-    fun build(): MemberAuthenticationEntity {
+    internal fun build(): MemberAuthenticationEntity {
         requireNotNull(memberId) { "member_authentication.member_id is required" }
         requireNotNull(username) { "member_authentication.username is required" }
         requireNotNull(strength) { "member_authentication.strength is required" }

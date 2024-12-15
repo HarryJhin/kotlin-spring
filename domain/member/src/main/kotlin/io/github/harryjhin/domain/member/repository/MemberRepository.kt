@@ -1,5 +1,6 @@
 package io.github.harryjhin.domain.member.repository
 
+import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import io.github.harryjhin.entity.member.MemberEntity
 import io.github.harryjhin.entity.member.QMemberEntity.memberEntity
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 class MemberRepository(
     private val entityManager: EntityManager,
     private val jpaQueryFactory: JPAQueryFactory,
-) : MemberQuerySyntax {
+) : MemberQuerySyntax,
+    MemberAuthenticationQuerySyntax {
 
     private val entityInformation: JpaEntityInformation<MemberEntity, *> =
         JpaEntityInformationSupport.getEntityInformation(MemberEntity::class.java, entityManager)
@@ -42,6 +44,7 @@ class MemberRepository(
 
     fun findByUsername(username: Username): MemberEntity? {
         return jpaQueryFactory.selectFrom(memberEntity)
+            .innerJoinMemberAuthentication()
             .where(
                 usernameEq(username)
             )
@@ -80,5 +83,12 @@ class MemberRepository(
         return jpaQueryFactory.delete(memberEntity)
             .where(memberEntity.id.eq(entity.id))
             .execute()
+    }
+
+    private fun idEq(memberId: MemberId?): BooleanExpression? {
+        if (memberId == null) {
+            return null
+        }
+        return memberEntity.id.eq(memberId.value)
     }
 }

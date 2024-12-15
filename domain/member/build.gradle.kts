@@ -8,9 +8,9 @@ group = "io.github.harryjhin.domain.member"
 dependencies {
     api(projects.model.core)
     api(projects.model.member)
-    api(projects.model.password)
     implementation(projects.entity.member)
-    implementation(projects.entity.password)
+    implementation(projects.entity.memberAuthentication)
+    implementation(projects.entity.memberAuthorization)
 
     implementation(libs.spring.security.crypto)
 }

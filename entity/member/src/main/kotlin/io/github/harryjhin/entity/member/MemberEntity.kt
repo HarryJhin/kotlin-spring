@@ -2,7 +2,7 @@ package io.github.harryjhin.entity.member
 
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
 import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.model.core.name.Name
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Index
@@ -12,7 +12,7 @@ import jakarta.persistence.Table
 @Table(
     name = "MEMBER",
     indexes = [
-        Index(name = "IDX_MEMBER_1", columnList = "USER_NAME", unique = true),
+        Index(name = "IDX_MEMBER_1", columnList = "NAME"),
         Index(name = "IDX_MEMBER_2", columnList = "EMAIL"),
     ],
 )
@@ -20,8 +20,8 @@ class MemberEntity internal constructor(
     builder: MemberEntityBuilder,
 ) : ModifiableBaseEntity() {
 
-    @Column(name = "USER_NAME", nullable = false)
-    var username: String = builder.username!!.value
+    @Column(name = "NAME", nullable = false)
+    var name: String = builder.name!!.value
         protected set
 
     @Column(name = "EMAIL", nullable = false)
@@ -30,13 +30,13 @@ class MemberEntity internal constructor(
 }
 
 class MemberEntityBuilder internal constructor(
-    var username: Username? = null,
+    var name: Name? = null,
     var email: Email? = null,
 ) {
 
     internal fun build(): MemberEntity {
-        requireNotNull(username) { "`username` 프로퍼티는 필수입니다." }
-        requireNotNull(email) { "`email` 프로퍼티는 필수입니다." }
+        requireNotNull(name) { "member.name is required" }
+        requireNotNull(email) { "member.email is required" }
         return MemberEntity(this)
     }
 }
@@ -57,7 +57,7 @@ class MemberEntityBuilder internal constructor(
 fun MemberEntity(
     builder: MemberEntityBuilder = MemberEntityBuilder(),
     buildToAction: MemberEntityBuilder.() -> Unit = {
-        this.username = Username("tester")
+        this.name = Name("테스터")
         this.email = Email("tester@gmail.com")
     },
 ): MemberEntity = builder.apply(buildToAction).build()

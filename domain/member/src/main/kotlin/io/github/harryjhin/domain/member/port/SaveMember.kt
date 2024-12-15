@@ -22,7 +22,7 @@ interface SaveMember {
     )
 }
 
-class SaveMemberRequestBuilder(
+class SaveMemberRequestBuilder internal constructor(
     var username: Username? = null,
     var email: Email? = null,
     var rawPassword: RawPassword? = null,

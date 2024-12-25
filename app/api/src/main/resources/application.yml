@@ -42,8 +42,17 @@ spring:
 
 logging:
   level:
-    io.github.harryjhin: DEBUG
-    root: info
-    sql: debug
+    root: INFO
+    io.github.harryjhin: TRACE
 
 ---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    root: WARN
+    io.github.harryjhin: WARN

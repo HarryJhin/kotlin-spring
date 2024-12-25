@@ -28,7 +28,7 @@ class KotlinSpringDomainLibraryPlugin : Plugin<Project> {
 
             dependencies {
                 add("api", project(":domain:core"))
-                add("api", project(":model:core"))
+                add("api", project(":model"))
                 add("implementation", libs.findLibrary("kotlin.reflect").get())
                 add("implementation", libs.findLibrary("spring.boot.starter.data.jpa").get())
             }

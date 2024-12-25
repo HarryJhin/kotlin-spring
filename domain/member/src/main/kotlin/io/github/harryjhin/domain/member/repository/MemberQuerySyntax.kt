@@ -4,7 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQuery
 import io.github.harryjhin.entity.member.QMemberEntity.memberEntity
 import io.github.harryjhin.entity.member.authentication.QMemberAuthenticationEntity.memberAuthenticationEntity
-import io.github.harryjhin.model.core.email.Email
+import io.github.harryjhin.model.email.Email
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean

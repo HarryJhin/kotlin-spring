@@ -1,3 +1,4 @@
+import io.github.harryjhin.*
 import io.github.harryjhin.configureBootJar
 import io.github.harryjhin.configureJar
 import io.github.harryjhin.configureKotlinJvm
@@ -22,12 +23,15 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             configureJar(false)
 
             dependencies {
-                add("implementation", project(":model:core"))
+                implementation(project(":model"))
+                implementation(project(":infra:cache"))
+                implementation(project(":infra:database"))
+                implementation(project(":infra:redis"))
 
-                add("implementation", libs.findLibrary("kotlin.reflect").get())
-                add("implementation", libs.findLibrary("spring.boot.starter.actuator").get())
+                implementation(libs.findLibrary("kotlin.reflect"))
+                implementation(libs.findLibrary("spring.boot.starter.actuator"))
 
-                add("developmentOnly", libs.findLibrary("spring.boot.devtools").get())
+                developmentOnly(libs.findLibrary("spring.boot.devtools"))
             }
         }
     }

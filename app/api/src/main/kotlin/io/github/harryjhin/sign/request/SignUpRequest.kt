@@ -1,7 +1,7 @@
 package io.github.harryjhin.sign.request
 
-import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.core.name.Name
+import io.github.harryjhin.model.email.Email
+import io.github.harryjhin.model.name.Name
 import io.github.harryjhin.model.member.RawPassword
 import io.github.harryjhin.model.member.Username
 

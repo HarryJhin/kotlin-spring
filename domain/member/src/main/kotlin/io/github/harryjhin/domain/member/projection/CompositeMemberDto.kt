@@ -1,10 +1,10 @@
 package io.github.harryjhin.domain.member.projection
 
 import com.querydsl.core.annotations.QueryProjection
-import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.core.email.toEmail
-import io.github.harryjhin.model.core.name.Name
-import io.github.harryjhin.model.core.name.toName
+import io.github.harryjhin.model.email.Email
+import io.github.harryjhin.model.email.toEmail
+import io.github.harryjhin.model.name.Name
+import io.github.harryjhin.model.name.toName
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.toMemberId

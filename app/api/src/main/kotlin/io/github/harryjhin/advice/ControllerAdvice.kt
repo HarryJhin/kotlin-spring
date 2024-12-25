@@ -1,7 +1,7 @@
 package io.github.harryjhin.advice
 
 import io.github.harryjhin.context.RequestIdContextHolder
-import io.github.harryjhin.model.core.exception.ResponseException
+import io.github.harryjhin.model.exception.ResponseException
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

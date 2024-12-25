@@ -1,4 +1,4 @@
-package io.github.harryjhin.model.core.email
+package io.github.harryjhin.model.email
 
 import java.util.regex.Pattern
 

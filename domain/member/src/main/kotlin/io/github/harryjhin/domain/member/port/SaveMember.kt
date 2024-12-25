@@ -3,8 +3,8 @@ package io.github.harryjhin.domain.member.port
 import io.github.harryjhin.domain.member.projection.CompositeMemberDto
 import io.github.harryjhin.entity.member.MemberEntity
 import io.github.harryjhin.entity.member.authentication.MemberAuthenticationEntity
-import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.core.name.Name
+import io.github.harryjhin.model.email.Email
+import io.github.harryjhin.model.name.Name
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.EncodedPassword

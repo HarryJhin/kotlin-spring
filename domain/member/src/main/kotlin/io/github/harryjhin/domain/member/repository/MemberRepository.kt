@@ -4,10 +4,11 @@ import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import io.github.harryjhin.entity.member.MemberEntity
 import io.github.harryjhin.entity.member.QMemberEntity.memberEntity
-import io.github.harryjhin.model.core.email.Email
+import io.github.harryjhin.model.email.Email
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
 import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
 import org.springframework.data.jpa.repository.support.JpaEntityInformation
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport
 import org.springframework.stereotype.Repository
@@ -16,13 +17,15 @@ import org.springframework.transaction.annotation.Transactional
 @Repository
 @Transactional(readOnly = true)
 class MemberRepository(
-    private val entityManager: EntityManager,
+    @PersistenceContext private val entityManager: EntityManager,
     private val jpaQueryFactory: JPAQueryFactory,
 ) : MemberQuerySyntax,
     MemberAuthenticationQuerySyntax {
 
-    private val entityInformation: JpaEntityInformation<MemberEntity, *> =
+    @Suppress("UNCHECKED_CAST")
+    private val entityInformation: JpaEntityInformation<MemberEntity, Long> =
         JpaEntityInformationSupport.getEntityInformation(MemberEntity::class.java, entityManager)
+        as JpaEntityInformation<MemberEntity, Long>
 
     @Transactional
     fun save(entity: MemberEntity): MemberEntity {
@@ -30,7 +33,7 @@ class MemberRepository(
             entityManager.persist(entity)
             return entity
         } else {
-            return entityManager.merge(entity)
+            throw UnsupportedOperationException("entityManager.merge(entity) is not supported.")
         }
     }
 

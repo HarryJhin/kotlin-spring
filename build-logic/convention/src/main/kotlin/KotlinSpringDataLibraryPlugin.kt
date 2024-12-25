@@ -1,3 +1,4 @@
+import io.github.harryjhin.*
 import io.github.harryjhin.configureBootJar
 import io.github.harryjhin.configureJar
 import io.github.harryjhin.configureKotlinJvm
@@ -27,10 +28,9 @@ class KotlinSpringDataLibraryPlugin : Plugin<Project> {
 
             dependencies {
                 add("api", project(":entity:core"))
-                add("api", project(":model:core"))
-                add("implementation", project(":infra:database"))
-                add("implementation", libs.findLibrary("kotlin.reflect").get())
-                add("implementation", libs.findLibrary("spring.boot.starter.data.jpa").get())
+                add("api", project(":model"))
+                implementation(libs.findLibrary("kotlin.reflect"))
+                implementation(libs.findLibrary("spring.boot.starter.data.jpa"))
             }
         }
     }

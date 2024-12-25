@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.library)
-    alias(libs.plugins.kotlin.library.test)
 }
 
-group = "io.github.harryjhin.model.core"
+group = "io.github.harryjhin.model"
 
 dependencies {
     implementation(libs.kotlin.reflect)

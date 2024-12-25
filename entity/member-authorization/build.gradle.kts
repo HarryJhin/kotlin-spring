@@ -5,5 +5,5 @@ plugins {
 group = "io.github.harryjhin.entity.member-authorization"
 
 dependencies {
-    api(projects.model.member)
+    api(projects.model)
 }

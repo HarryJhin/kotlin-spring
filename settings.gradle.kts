@@ -20,6 +20,7 @@ includeModules("domain")
 includeModules("entity")
 includeModules("infra")
 includeModules("model")
+include(":model")
 
 fun includeModules(prefix: String) {
     File(rootDir, prefix).listFiles()

@@ -19,13 +19,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
-        use_sql_comments: true
     open-in-view: false
+logging:
+  level:
+    # org.hibernate.engine.jdbc.spi.SqlStatementLogger
+    org.hibernate.SQL: TRACE
+    # org.hibernate.engine.jdbc.spi.SqlStatementLogger
+    org.hibernate.SQL_SLOW: TRACE
+    # org.hibernate.type.descriptor.JdbcBindingLogging
+    org.hibernate.orm.jdbc.bind: TRACE
+    # org.hibernate.type.descriptor.JdbcExtractingLogging
+    org.hibernate.orm.jdbc.extract: TRACE
 
 ---
 

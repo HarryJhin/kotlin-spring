@@ -10,6 +10,7 @@ import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.EncodedPassword
 import io.github.harryjhin.model.member.PasswordStrength
 import io.github.harryjhin.model.member.RawPassword
+import io.github.harryjhin.model.member.toUsername
 
 interface SaveMember {
 
@@ -31,13 +32,12 @@ interface SaveMember {
 class SaveMemberRequestBuilder internal constructor(
     var name: Name? = null,
     var email: Email? = null,
-    var username: Username? = null,
     var rawPassword: RawPassword? = null,
 ) {
     fun build(): SaveMember.Request = SaveMember.Request(
         name = requireNotNull(name) { "name is required" },
-        username = requireNotNull(username) { "username is required" },
         email = requireNotNull(email) { "email is required" },
+        username = requireNotNull(email?.value?.toUsername()) { "username is required" },
         rawPassword = requireNotNull(rawPassword) { "rawPassword is required" },
     )
 }

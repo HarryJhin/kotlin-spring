@@ -7,7 +7,6 @@ import io.github.harryjhin.model.member.Username
 
 data class SignUpRequest(
     val name: Name,
-    val username: Username,
     val email: Email,
     val rawPassword: RawPassword,
 )

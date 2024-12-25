@@ -17,7 +17,6 @@ class SignUpService(
     ): CompositeMemberDto {
         return saveMember {
             this.name = request.name
-            this.username = request.username
             this.email = request.email
             this.rawPassword = request.rawPassword
         }

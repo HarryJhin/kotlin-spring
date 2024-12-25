@@ -1,30 +1,14 @@
 plugins {
-    alias(libs.plugins.kotlin.spring.library)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.spring.querydsl.jpa.library)
 }
 
 group = "io.github.harryjhin.entity.core"
 
+tasks.withType<Jar> {
+    archiveBaseName = "entity-core"
+    archiveClassifier = ""
+}
+
 dependencies {
-    api(libs.spring.boot.starter.data.jpa)
-
-    implementation(libs.querydsl.jpa) {
-        artifact {
-            classifier = "jakarta"
-        }
-    }
-    implementation(libs.querydsl.apt) {
-        artifact {
-            classifier = "jakarta"
-        }
-    }
-    implementation(libs.jakarta.annotation.api)
-    implementation(libs.jakarta.persistence.api)
-
-    kapt(libs.querydsl.apt) {
-        artifact {
-            classifier = "jakarta"
-        }
-    }
-    kapt(libs.spring.boot.configuration.processor)
+    implementation(projects.entity.log)
 }

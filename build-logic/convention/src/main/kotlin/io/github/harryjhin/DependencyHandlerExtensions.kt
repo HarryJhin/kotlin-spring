@@ -20,6 +20,14 @@ internal fun DependencyHandler.implementation(dependencyNotation: Optional<Provi
     addProvider("implementation", dependencyNotation.get(), dependencyConfiguration)
 }
 
+internal fun DependencyHandler.api(dependencyNotation: Project) {
+    add("api", dependencyNotation)
+}
+
+internal fun DependencyHandler.api(dependencyNotation: Optional<Provider<MinimalExternalModuleDependency>>) {
+    addProvider("api", dependencyNotation.get())
+}
+
 internal fun DependencyHandler.kapt(dependencyNotation: Optional<Provider<MinimalExternalModuleDependency>>) {
     addProvider("kapt", dependencyNotation.get())
 }

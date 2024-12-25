@@ -4,6 +4,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.tasks.testing.Test
+import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -42,9 +43,17 @@ internal fun Project.configureBootJar(enabled: Boolean = false) {
     }
 }
 
-internal fun Project.configureJar(enabled: Boolean = false) {
-    tasks.named("jar") {
-        this.enabled = enabled
+internal fun Project.disableJar() {
+    tasks.withType<Jar> {
+        this.enabled = false
+    }
+}
+
+internal fun Project.configureJar(prefix: String = "") {
+    tasks.withType<Jar> {
+        this.enabled = true
+        this.archiveBaseName = "${prefix}-${this@configureJar.name}"
+        this.archiveClassifier = ""
     }
 }
 

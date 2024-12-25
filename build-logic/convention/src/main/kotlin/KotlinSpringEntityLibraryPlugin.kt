@@ -1,22 +1,23 @@
 import io.github.harryjhin.api
+import io.github.harryjhin.configureBootJar
 import io.github.harryjhin.configureJar
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class KotlinSpringDomainLibraryPlugin : Plugin<Project> {
-
+class KotlinSpringEntityLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             plugins(
                 "kotlin.spring.querydsl.jpa.library",
             )
 
-            configureJar("domain")
+            configureBootJar(false)
+            configureJar("entity")
 
             dependencies {
-                api(project(":domain:core"))
+                api(project(":entity:core"))
             }
         }
     }

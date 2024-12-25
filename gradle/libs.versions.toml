@@ -50,7 +50,8 @@ io-spring-dependency-management = { id = "io.spring.dependency-management", vers
 kotlin-library = { id = "kotlin.library" }
 kotlin-library-test = { id = "kotlin.library.test" }
 kotlin-spring-app = { id = "kotlin.spring.app" }
-kotlin-spring-data-library = { id = "kotlin.spring.data.library" }
 kotlin-spring-domain-library = { id = "kotlin.spring.domain.library" }
+kotlin-spring-entity-library = { id = "kotlin.spring.entity.library" }
+kotlin-spring-querydsl-jpa-library = { id = "kotlin.spring.querydsl.jpa.library" }
 kotlin-spring-library = { id = "kotlin.spring.library" }
 kotlin-spring-test = { id = "kotlin.spring.test" }

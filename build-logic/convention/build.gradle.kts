@@ -24,13 +24,17 @@ gradlePlugin {
             id = "kotlin.spring.app"
             implementationClass = "KotlinSpringAppPlugin"
         }
-        register("kotlin-spring-data-library") {
-            id = "kotlin.spring.data.library"
-            implementationClass = "KotlinSpringDataLibraryPlugin"
-        }
         register("kotlin-spring-domain-library") {
             id = "kotlin.spring.domain.library"
             implementationClass = "KotlinSpringDomainLibraryPlugin"
+        }
+        register("kotlin-spring-entity-library") {
+            id = "kotlin.spring.entity.library"
+            implementationClass = "KotlinSpringEntityLibraryPlugin"
+        }
+        register("kotlin-spring-querydsl-jpa-library") {
+            id = "kotlin.spring.querydsl.jpa.library"
+            implementationClass = "KotlinSpringQuerydslJpaLibraryPlugin"
         }
         register("kotlin-spring-library") {
             id = "kotlin.spring.library"

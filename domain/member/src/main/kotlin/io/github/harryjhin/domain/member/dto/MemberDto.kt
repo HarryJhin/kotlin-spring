@@ -1,6 +1,6 @@
 package io.github.harryjhin.domain.member.dto
 
-import io.github.harryjhin.entity.member.MemberEntity
+import io.github.harryjhin.entity.member.MemberInfoEntity
 import io.github.harryjhin.model.email.Email
 import io.github.harryjhin.model.email.toEmail
 import io.github.harryjhin.model.member.MemberId
@@ -14,7 +14,7 @@ data class MemberDto(
     val modifiedAt: Instant,
 )
 
-internal fun MemberEntity.toMember(): MemberDto = MemberDto(
+internal fun MemberInfoEntity.toMember(): MemberDto = MemberDto(
     memberId = this.id.toMemberId(),
     email = this.email.toEmail(),
     createdAt = this.createdAt,

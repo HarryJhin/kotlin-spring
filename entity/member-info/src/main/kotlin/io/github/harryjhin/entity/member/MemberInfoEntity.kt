@@ -12,15 +12,15 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(
-    name = "MEMBER",
+    name = "MEMBER_INFO",
     indexes = [
-        Index(name = "IDX_MEMBER_1", columnList = "NAME"),
-        Index(name = "IDX_MEMBER_2", columnList = "EMAIL"),
+        Index(name = "IDX_MEMBER_INFO_1", columnList = "NAME"),
+        Index(name = "IDX_MEMBER_INFO_2", columnList = "EMAIL"),
     ],
 )
 @EntityListeners(LoggingListener::class)
-class MemberEntity internal constructor(
-    builder: MemberEntityBuilder,
+class MemberInfoEntity internal constructor(
+    builder: MemberInfoEntityBuilder,
 ) : ModifiableBaseEntity() {
 
     @Column(name = "NAME", nullable = false)
@@ -32,20 +32,21 @@ class MemberEntity internal constructor(
         protected set
 }
 
-class MemberEntityBuilder internal constructor(
-    var name: Name? = null,
-    var email: Email? = null,
-) {
+open class MemberInfoEntityBuilder internal constructor() {
+    var name: Name? = null
+    var email: Email? = null
 
-    internal fun build(): MemberEntity {
+    internal fun build(): MemberInfoEntity {
         requireNotNull(name) { "member.name is required" }
         requireNotNull(email) { "member.email is required" }
-        return MemberEntity(this)
+        return MemberInfoEntity(this)
     }
+
+    companion object Default : MemberInfoEntityBuilder()
 }
 
 /**
- * [MemberEntity]를 생성합니다.
+ * [MemberInfoEntity]를 생성합니다.
  *
  * ```kotlin
  * val member = MemberEntity {
@@ -54,13 +55,13 @@ class MemberEntityBuilder internal constructor(
  * }
  * ```
  *
- * @param buildToAction [MemberEntityBuilder]를 빌드합니다.
- * @return [MemberEntity]
+ * @param buildToAction [MemberInfoEntityBuilder]를 빌드합니다.
+ * @return [MemberInfoEntity]
  */
-fun MemberEntity(
-    builder: MemberEntityBuilder = MemberEntityBuilder(),
-    buildToAction: MemberEntityBuilder.() -> Unit = {
+fun MemberInfoEntity(
+    builder: MemberInfoEntityBuilder = MemberInfoEntityBuilder.Default,
+    buildToAction: MemberInfoEntityBuilder.() -> Unit = {
         this.name = Name("테스터")
         this.email = Email("tester@gmail.com")
     },
-): MemberEntity = builder.apply(buildToAction).build()
+): MemberInfoEntity = builder.apply(buildToAction).build()

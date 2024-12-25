@@ -4,8 +4,8 @@ import io.github.harryjhin.domain.member.port.GetAllMember
 import io.github.harryjhin.domain.member.port.GetMember
 import io.github.harryjhin.domain.member.port.SaveMember
 import io.github.harryjhin.domain.member.projection.CompositeMemberDto
-import io.github.harryjhin.model.core.email.Email
-import io.github.harryjhin.model.core.name.toName
+import io.github.harryjhin.model.email.Email
+import io.github.harryjhin.model.name.toName
 import io.github.harryjhin.model.member.Username
 import io.github.harryjhin.model.member.RawPassword
 import jakarta.transaction.Transactional

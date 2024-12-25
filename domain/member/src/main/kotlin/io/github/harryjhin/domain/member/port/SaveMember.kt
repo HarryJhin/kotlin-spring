@@ -1,7 +1,7 @@
 package io.github.harryjhin.domain.member.port
 
 import io.github.harryjhin.domain.member.projection.CompositeMemberDto
-import io.github.harryjhin.entity.member.MemberEntity
+import io.github.harryjhin.entity.member.MemberInfoEntity
 import io.github.harryjhin.entity.member.authentication.MemberAuthenticationEntity
 import io.github.harryjhin.model.email.Email
 import io.github.harryjhin.model.name.Name
@@ -42,9 +42,9 @@ class SaveMemberRequestBuilder internal constructor(
     )
 }
 
-internal fun SaveMember.Request.toMemberEntity(): MemberEntity = MemberEntity {
-    this@MemberEntity.name = this@toMemberEntity.name
-    this@MemberEntity.email = this@toMemberEntity.email
+internal fun SaveMember.Request.toMemberEntity(): MemberInfoEntity = MemberInfoEntity {
+    this@MemberInfoEntity.name = this@toMemberEntity.name
+    this@MemberInfoEntity.email = this@toMemberEntity.email
 }
 
 internal fun SaveMember.Request.toMemberAuthenticationEntity(

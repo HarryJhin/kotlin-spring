@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = false)
-@ConditionalOnMissingBean(ApiMemberAdaptor::class, BatchMemberAdaptor::class, CmsMemberAdaptor::class)
+// @ConditionalOnMissingBean(ApiMemberAdaptor::class, BatchMemberAdaptor::class, CmsMemberAdaptor::class)
 class DefaultMemberAdaptor(
     private val passwordEncoder: PasswordEncoder,
     private val memberRepository: MemberRepository,

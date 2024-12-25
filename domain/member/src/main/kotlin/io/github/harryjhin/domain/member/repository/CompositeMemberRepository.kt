@@ -4,7 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import io.github.harryjhin.domain.member.projection.CompositeMemberDto
 import io.github.harryjhin.domain.member.projection.QCompositeMemberDto
-import io.github.harryjhin.entity.member.QMemberEntity.memberEntity
+import io.github.harryjhin.entity.member.QMemberInfoEntity.memberInfoEntity
 import io.github.harryjhin.entity.member.authentication.QMemberAuthenticationEntity.memberAuthenticationEntity
 import io.github.harryjhin.model.member.MemberId
 import io.github.harryjhin.model.member.Username
@@ -22,13 +22,13 @@ class CompositeMemberRepository(
         return jpaQueryFactory
             .select(
                 QCompositeMemberDto(
-                    memberEntity.id,
-                    memberEntity.name,
-                    memberEntity.email,
+                    memberInfoEntity.id,
+                    memberInfoEntity.name,
+                    memberInfoEntity.email,
                     memberAuthenticationEntity.username,
                     memberAuthenticationEntity.password,
                 )
-            ).from(memberEntity)
+            ).from(memberInfoEntity)
             .innerJoinMemberAuthentication()
             .where(
                 idEq(memberId)
@@ -40,13 +40,13 @@ class CompositeMemberRepository(
         return jpaQueryFactory
             .select(
                 QCompositeMemberDto(
-                    memberEntity.id,
-                    memberEntity.name,
-                    memberEntity.email,
+                    memberInfoEntity.id,
+                    memberInfoEntity.name,
+                    memberInfoEntity.email,
                     memberAuthenticationEntity.username,
                     memberAuthenticationEntity.password,
                 )
-            ).from(memberEntity)
+            ).from(memberInfoEntity)
             .innerJoinMemberAuthentication()
             .where(
                 usernameEq(username)
@@ -58,13 +58,13 @@ class CompositeMemberRepository(
         return jpaQueryFactory
             .select(
                 QCompositeMemberDto(
-                    memberEntity.id,
-                    memberEntity.name,
-                    memberEntity.email,
+                    memberInfoEntity.id,
+                    memberInfoEntity.name,
+                    memberInfoEntity.email,
                     memberAuthenticationEntity.username,
                     memberAuthenticationEntity.password,
                 )
-            ).from(memberEntity)
+            ).from(memberInfoEntity)
             .innerJoinMemberAuthentication()
             .fetch()
     }
@@ -73,6 +73,6 @@ class CompositeMemberRepository(
         if (memberId == null) {
             return null
         }
-        return memberEntity.id.eq(memberId.value)
+        return memberInfoEntity.id.eq(memberId.value)
     }
 }

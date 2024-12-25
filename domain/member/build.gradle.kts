@@ -6,9 +6,8 @@ plugins {
 group = "io.github.harryjhin.domain.member"
 
 dependencies {
-    api(projects.model.core)
-    api(projects.model.member)
-    implementation(projects.entity.member)
+    api(projects.model)
+    implementation(projects.entity.memberInfo)
     implementation(projects.entity.memberAuthentication)
     implementation(projects.entity.memberAuthorization)
 

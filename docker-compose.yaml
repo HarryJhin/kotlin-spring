@@ -1,4 +1,28 @@
 services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: api
+        PROFILE: dev
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      RO_DATABASE_URL: jdbc:postgresql://postgres:5432/kotlin-spring
+      RO_DATABASE_USERNAME: ${RO_DATABASE_USERNAME}
+      RO_DATABASE_PASSWORD: ${RO_DATABASE_PASSWORD}
+      RW_DATABASE_URL: jdbc:postgresql://postgres:5432/kotlin-spring
+      RW_DATABASE_USERNAME: ${RW_DATABASE_USERNAME}
+      RW_DATABASE_PASSWORD: ${RW_DATABASE_PASSWORD}
+    networks:
+      - elk
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
   postgres:
     container_name: postgres
     image: postgres:16-alpine
@@ -6,30 +30,53 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: kotlin-spring
+    networks:
+      - elk
     ports:
       - "5432:5432"
-    command: ["postgres", "-c", "log_statement=all", "-c", "log_connections=on", "-c", "log_disconnections=on"]
+    command: [ "postgres", "-c", "log_statement=all", "-c", "log_connections=on", "-c", "log_disconnections=on" ]
+    restart: unless-stopped
   redis:
     container_name: redis
     image: redis:7.0.15-alpine
+    networks:
+      - elk
     ports:
       - "6379:6379"
+    restart: unless-stopped
   elasticsearch:
     container_name: elasticsearch
-    image: elasticsearch:8.16.0
+    image: elasticsearch:8.17.0
+    environment:
+      node.name: elasticsearch
+      discovery.type: single-node
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      ES_JAVA_OPTS: -XX:UseSVE=0 -Xms512m -Xmx512m
+      CLI_JAVA_OPTS: -XX:UseSVE=0
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+    networks:
+      - elk
     ports:
       - "9200:9200"
       - "9300:9300"
-  logstash:
-    container_name: logstash
-    image: logstash:8.16.0
-    ports:
-      - "5044:5044"
+    restart: unless-stopped
   kibana:
     container_name: kibana
-    image: kibana:8.16.0
+    image: kibana:8.17.0
+    environment:
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
     ports:
       - "5601:5601"
-  filebeat:
-    container_name: filebeat
-    image: elastic/filebeat:8.16.0
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+networks:
+  elk:
+    driver: bridge

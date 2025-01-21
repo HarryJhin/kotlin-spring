@@ -1,6 +1,7 @@
 import io.github.harryjhin.api
 import io.github.harryjhin.configureBootJar
 import io.github.harryjhin.configureJar
+import io.github.harryjhin.implementation
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -18,6 +19,7 @@ class KotlinSpringEntityLibraryPlugin : Plugin<Project> {
 
             dependencies {
                 api(project(":entity:core"))
+                implementation(project(":infra:event"))
             }
         }
     }

@@ -1,5 +1,6 @@
 import io.github.harryjhin.api
 import io.github.harryjhin.configureJar
+import io.github.harryjhin.implementation
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,6 +18,7 @@ class KotlinSpringDomainLibraryPlugin : Plugin<Project> {
 
             dependencies {
                 api(project(":domain:core"))
+                implementation(project(":infra:event"))
             }
         }
     }

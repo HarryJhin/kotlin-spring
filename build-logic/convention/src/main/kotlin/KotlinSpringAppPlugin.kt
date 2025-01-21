@@ -19,6 +19,7 @@ class KotlinSpringAppPlugin : Plugin<Project> {
                 implementation(project(":model"))
                 implementation(project(":infra:cache"))
                 implementation(project(":infra:database"))
+                implementation(project(":infra:event"))
                 implementation(project(":infra:redis"))
 
                 implementation(libs.findLibrary("spring.boot.starter.actuator"))

@@ -1,3 +1,4 @@
+import io.github.harryjhin.implementation
 import io.github.harryjhin.libs
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
@@ -15,8 +16,8 @@ class KotlinSpringLibraryPlugin : Plugin<Project> {
             )
 
             dependencies {
-                add("implementation", libs.findLibrary("kotlin.reflect").get())
-                add("implementation", libs.findLibrary("spring.context").get())
+                implementation(libs.findLibrary("kotlin.reflect"))
+                implementation(libs.findLibrary("spring.context"))
             }
         }
     }

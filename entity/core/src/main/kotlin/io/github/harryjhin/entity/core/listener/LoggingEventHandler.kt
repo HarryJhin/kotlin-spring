@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager
 import jakarta.persistence.Table
 import kotlin.reflect.full.memberProperties
 import org.springframework.context.event.EventListener
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 
 @Component
@@ -13,6 +14,7 @@ class LoggingEventHandler(
     private val entityManager: EntityManager,
 ) {
 
+    @Async
     @EventListener
     fun handle(event: LoggingEvent) {
         val kClass = event.source::class

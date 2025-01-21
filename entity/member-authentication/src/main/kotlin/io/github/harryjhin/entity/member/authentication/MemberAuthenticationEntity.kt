@@ -22,19 +22,19 @@ class MemberAuthenticationEntity internal constructor(
 ) : ModifiableBaseEntity() {
 
     @Column(name = "MEMBER_ID", nullable = false)
-    var memberId: Long = builder.memberId!!.value
+    var memberId: MemberId = builder.memberId!!
         protected set
 
     @Column(name = "USERNAME", nullable = false)
-    var username: String = builder.username!!.value
+    var username: Username = builder.username!!
         protected set
 
     @Column(name = "STRENGTH", nullable = false)
-    var strength: Int = builder.strength!!.value
+    var strength: PasswordStrength = builder.strength!!
         protected set
 
     @Column(name = "PASSWORD", nullable = false)
-    var password: String = builder.password!!.value
+    var password: EncodedPassword = builder.password!!
         protected set
 }
 

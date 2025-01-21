@@ -24,11 +24,11 @@ class MemberInfoEntity internal constructor(
 ) : ModifiableBaseEntity() {
 
     @Column(name = "NAME", nullable = false)
-    var name: String = builder.name!!.value
+    var name: Name = builder.name!!
         protected set
 
     @Column(name = "EMAIL", nullable = false)
-    var email: String = builder.email!!.value
+    var email: Email = builder.email!!
         protected set
 }
 

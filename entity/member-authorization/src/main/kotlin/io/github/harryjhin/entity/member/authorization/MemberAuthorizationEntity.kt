@@ -19,7 +19,7 @@ class MemberAuthorizationEntity internal constructor(
 ) : ModifiableBaseEntity() {
 
     @Column(name = "MEMBER_ID", nullable = false)
-    var memberId: Long = builder.memberId!!.value
+    var memberId: MemberId = builder.memberId!!
         protected set
 }
 

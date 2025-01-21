@@ -16,7 +16,7 @@ data class MemberDto(
 
 internal fun MemberInfoEntity.toMember(): MemberDto = MemberDto(
     memberId = this.id.toMemberId(),
-    email = this.email.toEmail(),
+    email = this.email,
     createdAt = this.createdAt,
     modifiedAt = this.modifiedAt,
 )

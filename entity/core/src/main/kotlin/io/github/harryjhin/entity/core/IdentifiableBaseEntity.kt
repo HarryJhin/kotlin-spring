@@ -1,10 +1,19 @@
 package io.github.harryjhin.entity.core
 
-import jakarta.persistence.*
+import io.github.harryjhin.entity.core.listener.LoggingListener
+import jakarta.persistence.Column
+import jakarta.persistence.EntityListeners
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
+import jakarta.persistence.PostLoad
+import jakarta.persistence.PrePersist
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.proxy.HibernateProxy
 import org.hibernate.type.SqlTypes
 import org.springframework.data.domain.Persistable
+import kotlin.jvm.Transient
 
 /**
  * ### 엔티티 저장하기
@@ -31,6 +40,7 @@ import org.springframework.data.domain.Persistable
  * @see ModifiableBaseEntity
  */
 @MappedSuperclass
+@EntityListeners(LoggingListener::class)
 abstract class IdentifiableBaseEntity internal constructor() : Persistable<Long> {
 
     @Id

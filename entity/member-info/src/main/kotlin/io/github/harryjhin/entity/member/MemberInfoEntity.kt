@@ -6,7 +6,6 @@ import io.github.harryjhin.model.email.Email
 import io.github.harryjhin.model.name.Name
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.EntityListeners
 import jakarta.persistence.Index
 import jakarta.persistence.Table
 
@@ -18,7 +17,6 @@ import jakarta.persistence.Table
         Index(name = "IDX_MEMBER_INFO_2", columnList = "EMAIL"),
     ],
 )
-@EntityListeners(LoggingListener::class)
 class MemberInfoEntity internal constructor(
     builder: MemberInfoEntityBuilder,
 ) : ModifiableBaseEntity() {

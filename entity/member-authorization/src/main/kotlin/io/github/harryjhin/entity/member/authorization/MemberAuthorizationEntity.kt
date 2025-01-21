@@ -1,11 +1,9 @@
 package io.github.harryjhin.entity.member.authorization
 
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
-import io.github.harryjhin.entity.core.listener.LoggingListener
 import io.github.harryjhin.model.member.MemberId
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.EntityListeners
 import jakarta.persistence.Table
 
 @Entity
@@ -13,7 +11,6 @@ import jakarta.persistence.Table
     name = "MEMBER_AUTHORIZATION",
     indexes = [],
 )
-@EntityListeners(LoggingListener::class)
 class MemberAuthorizationEntity internal constructor(
     builder: MemberAuthorizationEntityBuilder,
 ) : ModifiableBaseEntity() {

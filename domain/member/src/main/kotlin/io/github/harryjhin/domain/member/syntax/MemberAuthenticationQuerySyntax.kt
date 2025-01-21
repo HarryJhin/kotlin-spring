@@ -1,4 +1,4 @@
-package io.github.harryjhin.domain.member.repository
+package io.github.harryjhin.domain.member.syntax
 
 import com.querydsl.core.types.dsl.BooleanExpression
 import io.github.harryjhin.entity.member.authentication.QMemberAuthenticationEntity.memberAuthenticationEntity

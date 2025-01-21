@@ -1,4 +1,4 @@
-package io.github.harryjhin.domain.member.repository
+package io.github.harryjhin.domain.member.syntax
 
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQuery
@@ -8,7 +8,7 @@ import io.github.harryjhin.model.email.Email
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean
-interface MemberQuerySyntax {
+interface MemberInfoQuerySyntax {
 
     fun <T> JPAQuery<T>.innerJoinMemberAuthentication(): JPAQuery<T> {
         return this.innerJoin(memberAuthenticationEntity)

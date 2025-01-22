@@ -1,9 +1,11 @@
 package io.github.harryjhin.domain.core
 
+import com.querydsl.core.types.EntityPath
+import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.jpa.impl.JPAQueryFactory
+import jakarta.annotation.PostConstruct
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
-import jakarta.persistence.Query
 import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
@@ -11,7 +13,6 @@ import jakarta.persistence.criteria.ParameterExpression
 import jakarta.persistence.criteria.Path
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
-import java.util.function.BiConsumer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
@@ -22,8 +23,11 @@ import org.springframework.data.jpa.repository.support.CrudMethodMetadata
 import org.springframework.data.jpa.repository.support.JpaEntityInformation
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport
 import org.springframework.data.jpa.repository.support.JpaRepositoryConfigurationAware
+import org.springframework.data.jpa.repository.support.Querydsl
 import org.springframework.data.projection.ProjectionFactory
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory
+import org.springframework.data.querydsl.EntityPathResolver
+import org.springframework.data.querydsl.SimpleEntityPathResolver
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.util.ProxyUtils
 import org.springframework.transaction.annotation.Transactional
@@ -35,10 +39,14 @@ abstract class QuerydslRepository<T : Any, ID>(
 ) : JpaRepositoryConfigurationAware {
 
     @[Autowired PersistenceContext]
-    private lateinit var entityManager: EntityManager
+    private lateinit var _entityManager: EntityManager
+
+    val entityManager: EntityManager by lazy { _entityManager }
 
     @Autowired
-    protected lateinit var jpaQueryFactory: JPAQueryFactory
+    private lateinit var _jpaQueryFactory: JPAQueryFactory
+
+    val jpaQueryFactory: JPAQueryFactory by lazy { _jpaQueryFactory }
 
     private val provider: PersistenceProvider by lazy {
         PersistenceProvider.fromEntityManager(entityManager)
@@ -54,6 +62,20 @@ abstract class QuerydslRepository<T : Any, ID>(
     private var projectionFactory: ProjectionFactory? = SpelAwareProxyProjectionFactory()
     private var escapeCharacter: EscapeCharacter = EscapeCharacter.DEFAULT
 
+    private val resolver: EntityPathResolver = SimpleEntityPathResolver.INSTANCE
+
+    private val path: EntityPath<T> by lazy {
+        resolver.createPath(entityInformation.javaType)
+    }
+
+    private val builder: PathBuilder<T> by lazy {
+        PathBuilder(path.type, path.metadata)
+    }
+
+    private val querydsl: Querydsl by lazy {
+        Querydsl(entityManager, builder)
+    }
+
     override fun setRepositoryMethodMetadata(metadata: CrudMethodMetadata) {
         this.metadata = metadata
     }
@@ -64,6 +86,15 @@ abstract class QuerydslRepository<T : Any, ID>(
 
     override fun setEscapeCharacter(escapeCharacter: EscapeCharacter) {
         this.escapeCharacter = escapeCharacter
+    }
+
+    /**
+     * Callback to verify configuration. Used by containers.
+     */
+    @PostConstruct
+    fun validate() {
+        assert(::_entityManager.isInitialized) { "EntityManager must be initialized" }
+        assert(::_jpaQueryFactory.isInitialized) { "JPAQueryFactory must be initialized" }
     }
 
     private fun getCountQueryString(): String {
@@ -135,7 +166,7 @@ abstract class QuerydslRepository<T : Any, ID>(
             .singleResult
     }
 
-    fun <S : T> save(entity: S): S {
+    fun save(entity: T): T {
         if (entityInformation.isNew(entity)) {
             entityManager.persist(entity)
             return entity
@@ -144,18 +175,18 @@ abstract class QuerydslRepository<T : Any, ID>(
         }
     }
 
-    fun <S : T> saveAndFlush(entity: S): S {
-        val result: S = save(entity)
+    fun saveAndFlush(entity: T): T {
+        val result: T = save(entity)
         flush()
         return result
     }
 
-    fun <S : T> saveAll(entities: Iterable<S>): List<S> {
+    fun saveAll(entities: Iterable<T>): List<T> {
         return entities.map(::save)
     }
 
-    fun <S : T> saveAllAndFlush(entities: Iterable<S>): List<S> {
-        val result: List<S> = saveAll(entities)
+    fun saveAllAndFlush(entities: Iterable<T>): List<T> {
+        val result: List<T> = saveAll(entities)
         flush()
         return result
     }
@@ -207,25 +238,6 @@ abstract class QuerydslRepository<T : Any, ID>(
         return query
     }
 
-    private fun <S> applyRepositoryMethodMetadataForCount(query: TypedQuery<S>): TypedQuery<S> {
-        applyQueryHintsForCount(query)
-
-        return query
-    }
-
-    private fun applyQueryHintsForCount(query: Query) {
-        if (metadata == null) {
-            return
-        }
-
-        applyComment(query::setHint)
-    }
-
-    private fun applyComment(consumer: BiConsumer<String?, Any?>) {
-        if (metadata?.comment != null && provider.commentHintKey != null) {
-            consumer.accept(provider.commentHintKey, provider.getCommentHintValue(this.metadata!!.comment!!))
-        }
-    }
 
     companion object {
         fun <ID> Iterable<ID>.toCollection(): Collection<ID> {

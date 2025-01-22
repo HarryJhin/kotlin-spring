@@ -1,3 +1,4 @@
+import io.github.harryjhin.configureJar
 import io.github.harryjhin.disableBootJar
 import io.github.harryjhin.implementation
 import io.github.harryjhin.libs
@@ -14,6 +15,7 @@ class KotlinSpringInfraLibraryPlugin : Plugin<Project> {
             )
 
             disableBootJar()
+            configureJar("infra")
 
             dependencies {
             }

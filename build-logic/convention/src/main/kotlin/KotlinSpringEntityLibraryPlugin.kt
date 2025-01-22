@@ -1,5 +1,5 @@
 import io.github.harryjhin.api
-import io.github.harryjhin.configureBootJar
+import io.github.harryjhin.disableBootJar
 import io.github.harryjhin.configureJar
 import io.github.harryjhin.implementation
 import io.github.harryjhin.plugins
@@ -14,7 +14,7 @@ class KotlinSpringEntityLibraryPlugin : Plugin<Project> {
                 "kotlin.spring.querydsl.jpa.library",
             )
 
-            configureBootJar(false)
+            disableBootJar()
             configureJar("entity")
 
             dependencies {

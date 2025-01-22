@@ -1,3 +1,4 @@
+import io.github.harryjhin.disableBootJar
 import io.github.harryjhin.implementation
 import io.github.harryjhin.libs
 import io.github.harryjhin.plugins

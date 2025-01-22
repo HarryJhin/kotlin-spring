@@ -1,7 +1,4 @@
 import io.github.harryjhin.*
-import io.github.harryjhin.configureBootJar
-import io.github.harryjhin.configureJar
-import io.github.harryjhin.configureKotlinJvm
 import io.github.harryjhin.libs
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
@@ -16,7 +13,7 @@ class KotlinSpringAppPlugin : Plugin<Project> {
             )
 
             dependencies {
-                implementation(project(":model"))
+                implementation(project(":common"))
                 implementation(project(":infra:cache"))
                 implementation(project(":infra:database"))
                 implementation(project(":infra:event"))

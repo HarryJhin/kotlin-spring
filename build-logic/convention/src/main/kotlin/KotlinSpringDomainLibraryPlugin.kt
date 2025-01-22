@@ -1,5 +1,6 @@
 import io.github.harryjhin.api
 import io.github.harryjhin.configureJar
+import io.github.harryjhin.disableBootJar
 import io.github.harryjhin.implementation
 import io.github.harryjhin.plugins
 import org.gradle.api.Plugin
@@ -14,10 +15,12 @@ class KotlinSpringDomainLibraryPlugin : Plugin<Project> {
                 "kotlin.spring.querydsl.jpa.library",
             )
 
+            disableBootJar()
             configureJar("domain")
 
             dependencies {
                 api(project(":domain:core"))
+                api(project(":bootstrap"))
                 implementation(project(":infra:event"))
             }
         }

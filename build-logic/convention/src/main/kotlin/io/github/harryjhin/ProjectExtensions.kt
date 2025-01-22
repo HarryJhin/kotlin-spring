@@ -11,6 +11,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 internal val Project.libs
     get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -37,21 +38,17 @@ internal fun Project.configureTestTask() {
     }
 }
 
-internal fun Project.configureBootJar(enabled: Boolean = false) {
-    tasks.named("bootJar") {
-        this.enabled = enabled
+internal fun Project.disableBootJar() {
+    tasks.withType(Jar::class.java) {
+        this.enabled = true
     }
-}
-
-internal fun Project.disableJar() {
-    tasks.withType<Jar> {
+    tasks.withType(BootJar::class.java) {
         this.enabled = false
     }
 }
 
 internal fun Project.configureJar(prefix: String = "") {
     tasks.withType<Jar> {
-        this.enabled = true
         this.archiveBaseName = "${prefix}-${this@configureJar.name}"
         this.archiveClassifier = ""
     }

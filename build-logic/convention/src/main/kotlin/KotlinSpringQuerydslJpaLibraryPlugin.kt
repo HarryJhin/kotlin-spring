@@ -1,5 +1,5 @@
 import io.github.harryjhin.api
-import io.github.harryjhin.configureBootJar
+import io.github.harryjhin.disableBootJar
 import io.github.harryjhin.configureQueryDSL
 import io.github.harryjhin.implementation
 import io.github.harryjhin.libs
@@ -17,11 +17,11 @@ class KotlinSpringQuerydslJpaLibraryPlugin : Plugin<Project> {
                 "kotlin.spring.library",
             )
 
-            configureBootJar(false)
+            disableBootJar()
             configureQueryDSL()
 
             dependencies {
-                api(project(":model"))
+                api(project(":common"))
                 implementation(project(":infra:event"))
 
                 implementation(libs.findLibrary("kotlin.reflect"))

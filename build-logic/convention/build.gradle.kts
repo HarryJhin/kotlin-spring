@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.spring.boot.gradle.plugin)
 }
 
 kotlin {
@@ -31,6 +32,10 @@ gradlePlugin {
         register("kotlin-spring-entity-library") {
             id = "kotlin.spring.entity.library"
             implementationClass = "KotlinSpringEntityLibraryPlugin"
+        }
+        register("kotlin-spring-infra-library") {
+            id = "kotlin.spring.infra.library"
+            implementationClass = "KotlinSpringInfraLibraryPlugin"
         }
         register("kotlin-spring-querydsl-jpa-library") {
             id = "kotlin.spring.querydsl.jpa.library"

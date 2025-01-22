@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.spring.library)
+    alias(libs.plugins.kotlin.spring.infra.library)
     alias(libs.plugins.kotlin.kapt)
 }
 

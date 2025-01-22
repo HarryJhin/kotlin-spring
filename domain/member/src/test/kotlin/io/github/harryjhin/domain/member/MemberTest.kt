@@ -11,7 +11,7 @@ import jakarta.transaction.Transactional
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.BeforeAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.Page
@@ -21,62 +21,16 @@ import org.springframework.data.domain.Sort
 @Transactional
 @SpringBootTest
 class MemberTest @Autowired constructor(
-    private val saveMember: SaveMember,
     private val getMember: GetMember,
     private val getAllMember: GetAllMember,
 ) {
-
-    private val members: MutableList<Member> = mutableListOf()
-
-    @BeforeEach
-    fun setUp() {
-        members.add(
-            saveMember {
-                this.name = "테스터".toName()
-                this.email = "tester1@gmail.com".toEmail()
-                this.rawPassword = "password".toRawPassword()
-            }
-        )
-
-        members.add(
-            saveMember {
-                this.name = "테스터".toName()
-                this.email = "tester2@gmail.com".toEmail()
-                this.rawPassword = "password".toRawPassword()
-            }
-        )
-
-        members.add(
-            saveMember {
-                this.name = "테스터".toName()
-                this.email = "tester3@gmail.com".toEmail()
-                this.rawPassword = "password".toRawPassword()
-            }
-        )
-
-        members.add(
-            saveMember {
-                this.name = "테스터".toName()
-                this.email = "tester4@gmail.com".toEmail()
-                this.rawPassword = "password".toRawPassword()
-            }
-        )
-
-        members.add(
-            saveMember {
-                this.name = "테스터".toName()
-                this.email = "tester5@gmail.com".toEmail()
-                this.rawPassword = "password".toRawPassword()
-            }
-        )
-    }
 
     @Test
     fun `회원 조회 #member_id`() {
         // given
 
         // when
-        val member = getMember(memberId = members.first().memberId)
+        val member: Member? = getMember(memberId = members.first().memberId)
 
         // then
         assertNotNull(member)
@@ -87,7 +41,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val member = getMember(username = members.first().username)
+        val member: Member? = getMember(username = members.first().username)
 
         // then
         assertNotNull(member)
@@ -98,7 +52,8 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results = getAllMember()
+        val results: List<Member> = getAllMember()
+            .onEach(::println)
 
         // then
         assertEquals(
@@ -112,7 +67,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results = getAllMember(sort = Sort.by(Sort.Order.desc("id")))
+        val results: List<Member> = getAllMember(sort = Sort.by(Sort.Order.desc("id")))
             .onEach(::println)
 
         // then
@@ -146,5 +101,45 @@ class MemberTest @Autowired constructor(
             expected = pageable.pageSize,
             actual = page.size,
         )
+    }
+
+    companion object {
+        private val members: MutableList<Member> = mutableListOf()
+
+        @BeforeAll
+        @JvmStatic
+        fun beforeAll(
+            @Autowired saveMember: SaveMember,
+        ) {
+            saveMember {
+                this.name = "테스터".toName()
+                this.email = "tester1@gmail.com".toEmail()
+                this.rawPassword = "password".toRawPassword()
+            }.run(members::add)
+
+            saveMember {
+                this.name = "테스터".toName()
+                this.email = "tester2@gmail.com".toEmail()
+                this.rawPassword = "password".toRawPassword()
+            }.run(members::add)
+
+            saveMember {
+                this.name = "테스터".toName()
+                this.email = "tester3@gmail.com".toEmail()
+                this.rawPassword = "password".toRawPassword()
+            }.run(members::add)
+
+            saveMember {
+                this.name = "테스터".toName()
+                this.email = "tester4@gmail.com".toEmail()
+                this.rawPassword = "password".toRawPassword()
+            }.run(members::add)
+
+            saveMember {
+                this.name = "테스터".toName()
+                this.email = "tester4@gmail.com".toEmail()
+                this.rawPassword = "password".toRawPassword()
+            }.run(members::add)
+        }
     }
 }

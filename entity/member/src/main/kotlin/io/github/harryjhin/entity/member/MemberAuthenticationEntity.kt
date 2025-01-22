@@ -1,10 +1,10 @@
-package io.github.harryjhin.entity.member.authentication
+package io.github.harryjhin.entity.member
 
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
-import io.github.harryjhin.model.member.EncodedPassword
-import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.PasswordStrength
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.common.member.EncodedPassword
+import io.github.harryjhin.common.id.MemberId
+import io.github.harryjhin.common.member.PasswordStrength
+import io.github.harryjhin.common.member.Username
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table

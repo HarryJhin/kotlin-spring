@@ -1,9 +1,8 @@
 package io.github.harryjhin.entity.member
 
 import io.github.harryjhin.entity.core.ModifiableBaseEntity
-import io.github.harryjhin.entity.core.listener.LoggingListener
-import io.github.harryjhin.model.email.Email
-import io.github.harryjhin.model.name.Name
+import io.github.harryjhin.common.email.Email
+import io.github.harryjhin.common.name.Name
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Index

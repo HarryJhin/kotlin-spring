@@ -1,7 +1,7 @@
 package io.github.harryjhin.entity.core.converter
 
-import io.github.harryjhin.model.member.PasswordStrength
-import io.github.harryjhin.model.member.toPasswordStrength
+import io.github.harryjhin.common.member.PasswordStrength
+import io.github.harryjhin.common.member.toPasswordStrength
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

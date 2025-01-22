@@ -1,7 +1,7 @@
 package io.github.harryjhin.entity.core.converter
 
-import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.toMemberId
+import io.github.harryjhin.common.id.MemberId
+import io.github.harryjhin.common.id.toMemberId
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

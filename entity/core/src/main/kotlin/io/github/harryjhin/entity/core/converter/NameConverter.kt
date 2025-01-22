@@ -1,7 +1,7 @@
 package io.github.harryjhin.entity.core.converter
 
-import io.github.harryjhin.model.name.Name
-import io.github.harryjhin.model.name.toName
+import io.github.harryjhin.common.name.Name
+import io.github.harryjhin.common.name.toName
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

@@ -1,7 +1,7 @@
 package io.github.harryjhin.entity.core.converter
 
-import io.github.harryjhin.model.email.Email
-import io.github.harryjhin.model.email.toEmail
+import io.github.harryjhin.common.email.Email
+import io.github.harryjhin.common.email.toEmail
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

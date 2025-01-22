@@ -1,7 +1,7 @@
 package io.github.harryjhin.entity.core.converter
 
-import io.github.harryjhin.model.member.EncodedPassword
-import io.github.harryjhin.model.member.toEncodedPassword
+import io.github.harryjhin.common.member.EncodedPassword
+import io.github.harryjhin.common.member.toEncodedPassword
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 

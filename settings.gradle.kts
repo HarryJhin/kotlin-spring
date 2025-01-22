@@ -19,8 +19,8 @@ includeModules("app")
 includeModules("domain")
 includeModules("entity")
 includeModules("infra")
-includeModules("model")
-include(":model")
+include(":bootstrap")
+include(":common")
 
 fun includeModules(prefix: String) {
     File(rootDir, prefix).listFiles()

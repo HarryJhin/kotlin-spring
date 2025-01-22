@@ -28,13 +28,16 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-context = { module = "org.springframework:spring-context" }
+spring-data-commons = { module = "org.springframework.data:spring-data-commons" }
 spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
 spring-security-crypto = { module = "org.springframework.security:spring-security-crypto" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 spring-tx = { module = "org.springframework:spring-tx" }
+spring-web = { module = "org.springframework:spring-web" }
 
 # build-logic
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "springboot" }
 
 [bundles]
 
@@ -52,6 +55,7 @@ kotlin-library-test = { id = "kotlin.library.test" }
 kotlin-spring-app = { id = "kotlin.spring.app" }
 kotlin-spring-domain-library = { id = "kotlin.spring.domain.library" }
 kotlin-spring-entity-library = { id = "kotlin.spring.entity.library" }
+kotlin-spring-infra-library = { id = "kotlin.spring.infra.library" }
 kotlin-spring-querydsl-jpa-library = { id = "kotlin.spring.querydsl.jpa.library" }
 kotlin-spring-library = { id = "kotlin.spring.library" }
 kotlin-spring-test = { id = "kotlin.spring.test" }

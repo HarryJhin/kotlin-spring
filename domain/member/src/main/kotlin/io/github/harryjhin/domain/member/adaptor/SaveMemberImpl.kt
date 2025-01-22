@@ -1,15 +1,16 @@
 package io.github.harryjhin.domain.member.adaptor
 
-import io.github.harryjhin.domain.member.port.SaveMember
-import io.github.harryjhin.domain.member.port.SaveMemberRequestBuilder
-import io.github.harryjhin.domain.member.port.toMemberAuthenticationEntity
-import io.github.harryjhin.domain.member.port.toMemberInfoEntity
-import io.github.harryjhin.domain.member.projection.Member
+import io.github.harryjhin.bootstrap.member.SaveMember
+import io.github.harryjhin.bootstrap.member.SaveMemberRequestBuilder
+import io.github.harryjhin.domain.member.extension.toMemberAuthenticationEntity
+import io.github.harryjhin.domain.member.extension.toMemberInfoEntity
 import io.github.harryjhin.domain.member.property.PasswordProperties
 import io.github.harryjhin.domain.member.repository.MemberAuthenticationRepository
 import io.github.harryjhin.domain.member.repository.MemberInfoRepository
-import io.github.harryjhin.model.member.toEncodedPassword
-import io.github.harryjhin.model.member.toMemberId
+import io.github.harryjhin.common.member.toEncodedPassword
+import io.github.harryjhin.common.id.toMemberId
+import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.SimpleMember
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -32,12 +33,12 @@ class SaveMemberImpl(
             password = passwordEncoder.encode(request.rawPassword.value).toEncodedPassword()
         ).run(memberAuthenticationRepository::save)
 
-        return Member(
-            memberId = member.id,
+        return SimpleMember(
+            memberId = member.id.toMemberId(),
             name = member.name,
             email = member.email,
             username = memberAuthentication.username,
-            password = memberAuthentication.password,
+            password = memberAuthentication.password
         )
     }
 

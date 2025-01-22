@@ -1,9 +1,9 @@
 package io.github.harryjhin.domain.member.syntax
 
 import com.querydsl.core.types.dsl.BooleanExpression
-import io.github.harryjhin.entity.member.authentication.QMemberAuthenticationEntity.memberAuthenticationEntity
-import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.entity.member.QMemberAuthenticationEntity.memberAuthenticationEntity
+import io.github.harryjhin.common.id.MemberId
+import io.github.harryjhin.common.member.Username
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean

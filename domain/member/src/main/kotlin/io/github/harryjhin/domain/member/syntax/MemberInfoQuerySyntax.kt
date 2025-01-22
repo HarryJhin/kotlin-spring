@@ -3,8 +3,8 @@ package io.github.harryjhin.domain.member.syntax
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQuery
 import io.github.harryjhin.entity.member.QMemberInfoEntity.memberInfoEntity
-import io.github.harryjhin.entity.member.authentication.QMemberAuthenticationEntity.memberAuthenticationEntity
-import io.github.harryjhin.model.email.Email
+import io.github.harryjhin.entity.member.QMemberAuthenticationEntity.memberAuthenticationEntity
+import io.github.harryjhin.common.email.Email
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean

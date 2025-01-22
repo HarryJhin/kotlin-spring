@@ -1,5 +1,5 @@
 package io.github.harryjhin.domain.member.exception
 
-import io.github.harryjhin.model.exception.ResponseException
+import io.github.harryjhin.common.exception.ResponseException
 
 sealed class MemberException : ResponseException()

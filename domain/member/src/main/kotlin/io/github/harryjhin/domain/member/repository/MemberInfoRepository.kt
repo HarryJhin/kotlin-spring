@@ -6,9 +6,9 @@ import io.github.harryjhin.domain.member.syntax.MemberAuthenticationQuerySyntax
 import io.github.harryjhin.domain.member.syntax.MemberInfoQuerySyntax
 import io.github.harryjhin.entity.member.MemberInfoEntity
 import io.github.harryjhin.entity.member.QMemberInfoEntity.memberInfoEntity
-import io.github.harryjhin.model.email.Email
-import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.common.email.Email
+import io.github.harryjhin.common.id.MemberId
+import io.github.harryjhin.common.member.Username
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 

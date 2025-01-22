@@ -6,10 +6,8 @@ plugins {
 group = "io.github.harryjhin.domain.member"
 
 dependencies {
-    api(projects.model)
-    implementation(projects.entity.memberInfo)
-    implementation(projects.entity.memberAuthentication)
-    implementation(projects.entity.memberAuthorization)
+    api(projects.common)
+    implementation(projects.entity.member)
 
     implementation(libs.spring.security.crypto)
 }

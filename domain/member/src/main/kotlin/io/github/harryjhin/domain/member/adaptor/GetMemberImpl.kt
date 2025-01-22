@@ -1,11 +1,10 @@
 package io.github.harryjhin.domain.member.adaptor
 
-import io.github.harryjhin.domain.member.port.GetMember
-import io.github.harryjhin.domain.member.repository.MemberInfoRepository
-import io.github.harryjhin.entity.member.MemberInfoEntity
-import io.github.harryjhin.model.email.Email
-import io.github.harryjhin.model.member.MemberId
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.bootstrap.member.GetMember
+import io.github.harryjhin.common.id.MemberId
+import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.Username
+import io.github.harryjhin.domain.member.repository.MemberRepository
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.context.annotation.Conditional
@@ -17,19 +16,17 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 @Conditional(GetMemberImpl.GetMemberCondition::class)
 class GetMemberImpl(
-    private val memberInfoRepository: MemberInfoRepository,
+    private val memberRepository: MemberRepository,
 ) : GetMember {
 
-    override fun invoke(memberId: MemberId): MemberInfoEntity? {
-        return memberInfoRepository.findById(memberId.value)
+    override operator fun invoke(memberId: MemberId): Member? {
+        return memberRepository.findById(memberId)
+            ?.toSimpleMember()
     }
 
-    override fun invoke(username: Username): MemberInfoEntity? {
-        return memberInfoRepository.findByUsername(username)
-    }
-
-    override fun invoke(email: Email): MemberInfoEntity? {
-        return memberInfoRepository.findByEmail(email)
+    override operator fun invoke(username: Username): Member? {
+        return memberRepository.findByUsername(username)
+            ?.toSimpleMember()
     }
 
     class GetMemberCondition : Condition {

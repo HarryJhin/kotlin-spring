@@ -1,4 +1,4 @@
-package io.github.harryjhin.model.member
+package io.github.harryjhin.common.member
 
 import java.util.regex.Pattern
 

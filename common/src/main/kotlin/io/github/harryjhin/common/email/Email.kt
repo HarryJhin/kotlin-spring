@@ -1,6 +1,6 @@
-package io.github.harryjhin.model.email
+package io.github.harryjhin.common.email
 
-import io.github.harryjhin.model.valid
+import io.github.harryjhin.common.exception.valid
 import java.util.regex.Pattern
 
 @JvmInline

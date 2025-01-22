@@ -1,4 +1,4 @@
-package io.github.harryjhin.model.name
+package io.github.harryjhin.common.name
 
 @JvmInline
 value class Name(val value: String) {

@@ -1,6 +1,4 @@
-package io.github.harryjhin.model
-
-import io.github.harryjhin.model.exception.ValidArgumentException
+package io.github.harryjhin.common.exception
 
 inline fun valid(value: Boolean, lazyMessage: () -> String) {
     if (!value) {

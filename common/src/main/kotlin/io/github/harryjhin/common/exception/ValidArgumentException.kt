@@ -1,4 +1,4 @@
-package io.github.harryjhin.model.exception
+package io.github.harryjhin.common.exception
 
 class ValidArgumentException(
     override val message: String,

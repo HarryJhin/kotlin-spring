@@ -4,6 +4,10 @@ plugins {
 
 group = "io.github.harryjhin.domain.core"
 
+dependencies {
+    api(libs.spring.web)
+}
+
 tasks.withType<Jar> {
     archiveBaseName = "domain-core"
     archiveClassifier = ""

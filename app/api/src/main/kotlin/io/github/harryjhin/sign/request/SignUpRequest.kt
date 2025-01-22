@@ -1,9 +1,8 @@
 package io.github.harryjhin.sign.request
 
-import io.github.harryjhin.model.email.Email
-import io.github.harryjhin.model.name.Name
-import io.github.harryjhin.model.member.RawPassword
-import io.github.harryjhin.model.member.Username
+import io.github.harryjhin.common.email.Email
+import io.github.harryjhin.common.name.Name
+import io.github.harryjhin.common.member.RawPassword
 
 data class SignUpRequest(
     val name: Name,

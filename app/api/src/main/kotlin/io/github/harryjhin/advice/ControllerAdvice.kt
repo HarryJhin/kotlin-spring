@@ -1,8 +1,8 @@
 package io.github.harryjhin.advice
 
 import io.github.harryjhin.context.RequestIdContextHolder
-import io.github.harryjhin.model.exception.ResponseException
-import io.github.harryjhin.model.exception.ValidArgumentException
+import io.github.harryjhin.common.exception.ResponseException
+import io.github.harryjhin.common.exception.ValidArgumentException
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

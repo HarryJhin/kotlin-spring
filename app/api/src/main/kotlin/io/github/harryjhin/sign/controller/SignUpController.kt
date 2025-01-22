@@ -1,6 +1,6 @@
 package io.github.harryjhin.sign.controller
 
-import io.github.harryjhin.domain.member.projection.Member
+import io.github.harryjhin.common.member.Member
 import io.github.harryjhin.sign.request.SignUpRequest
 import io.github.harryjhin.sign.service.SignUpService
 import org.springframework.web.bind.annotation.PostMapping

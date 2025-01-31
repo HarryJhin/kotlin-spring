@@ -102,7 +102,7 @@ abstract class QuerydslRepositorySupport(
 
     private fun <S> JPAQuery<S>.execute(pageable: Pageable): List<S> {
         return this
-            .order(pageable.sort)
+            .orderBy(pageable.sort)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
@@ -114,7 +114,14 @@ abstract class QuerydslRepositorySupport(
         return this.fetch().size.toLong()
     }
 
-    fun <S> JPAQuery<S>.order(sort: Sort): JPAQuery<S> {
+    /**
+     * ### 정렬
+     *
+     * 정렬 정보를 쿼리에 적용하는 함수입니다.
+     *
+     * @param sort 정렬 정보
+     */
+    fun <S> JPAQuery<S>.orderBy(sort: Sort): JPAQuery<S> {
         if (this.metadata.orderBy.isNotEmpty()) {
             return this
         }

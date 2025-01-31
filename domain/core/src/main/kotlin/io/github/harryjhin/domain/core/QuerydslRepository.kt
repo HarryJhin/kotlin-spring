@@ -3,6 +3,7 @@ package io.github.harryjhin.domain.core
 import com.querydsl.core.types.EntityPath
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.jpa.impl.JPAQueryFactory
+import io.github.harryjhin.entity.core.IdentifiableBaseEntity
 import jakarta.annotation.PostConstruct
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
@@ -34,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @NoRepositoryBean
-abstract class QuerydslRepository<T : Any, ID>(
+abstract class QuerydslRepository<T : IdentifiableBaseEntity, ID>(
     private val domainClass: Class<T>,
 ) : JpaRepositoryConfigurationAware {
 

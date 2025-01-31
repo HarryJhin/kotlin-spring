@@ -1,18 +1,18 @@
 package io.github.harryjhin.domain.member.extension
 
-import io.github.harryjhin.bootstrap.member.SaveMember
-import io.github.harryjhin.entity.member.MemberInfoEntity
+import io.github.harryjhin.bootstrap.member.CreateMember
+import io.github.harryjhin.entity.member.MemberEntity
 import io.github.harryjhin.entity.member.MemberAuthenticationEntity
 import io.github.harryjhin.common.id.MemberId
 import io.github.harryjhin.common.member.EncodedPassword
 import io.github.harryjhin.common.member.PasswordStrength
 
-internal fun SaveMember.Request.toMemberInfoEntity(): MemberInfoEntity = MemberInfoEntity {
-    this@MemberInfoEntity.name = this@toMemberInfoEntity.name
-    this@MemberInfoEntity.email = this@toMemberInfoEntity.email
+internal fun CreateMember.Request.toMemberEntity(): MemberEntity = MemberEntity {
+    this@MemberEntity.name = this@toMemberEntity.name
+    this@MemberEntity.email = this@toMemberEntity.email
 }
 
-internal fun SaveMember.Request.toMemberAuthenticationEntity(
+internal fun CreateMember.Request.toMemberAuthenticationEntity(
     memberId: MemberId,
     strength: PasswordStrength,
     password: EncodedPassword,

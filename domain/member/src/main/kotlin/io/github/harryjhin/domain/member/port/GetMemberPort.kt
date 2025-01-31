@@ -1,10 +1,10 @@
-package io.github.harryjhin.domain.member.adaptor
+package io.github.harryjhin.domain.member.port
 
 import io.github.harryjhin.bootstrap.member.GetMember
 import io.github.harryjhin.common.id.MemberId
-import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.common.member.Username
-import io.github.harryjhin.domain.member.repository.MemberRepository
+import io.github.harryjhin.domain.member.repository.MemberQuerydslRepository
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.context.annotation.Conditional
@@ -14,19 +14,19 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = true)
-@Conditional(GetMemberImpl.GetMemberCondition::class)
-class GetMemberImpl(
-    private val memberRepository: MemberRepository,
+@Conditional(GetMemberPort.GetMemberCondition::class)
+class GetMemberPort(
+    private val memberQuerydslRepository: MemberQuerydslRepository,
 ) : GetMember {
 
-    override operator fun invoke(memberId: MemberId): Member? {
-        return memberRepository.findById(memberId)
-            ?.toSimpleMember()
+    override operator fun invoke(memberId: MemberId): MemberCompat? {
+        return memberQuerydslRepository.findById(memberId)
+            ?.toMember()
     }
 
-    override operator fun invoke(username: Username): Member? {
-        return memberRepository.findByUsername(username)
-            ?.toSimpleMember()
+    override operator fun invoke(username: Username): MemberCompat? {
+        return memberQuerydslRepository.findByUsername(username)
+            ?.toMember()
     }
 
     class GetMemberCondition : Condition {

@@ -1,8 +1,8 @@
 package io.github.harryjhin.entity.member
 
-import io.github.harryjhin.entity.core.ModifiableBaseEntity
 import io.github.harryjhin.common.email.Email
 import io.github.harryjhin.common.name.Name
+import io.github.harryjhin.entity.core.ModifiableBaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Index
@@ -10,14 +10,14 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(
-    name = "MEMBER_INFO",
+    name = "MEMBER",
     indexes = [
         Index(name = "IDX_MEMBER_INFO_1", columnList = "NAME"),
         Index(name = "IDX_MEMBER_INFO_2", columnList = "EMAIL"),
     ],
 )
-class MemberInfoEntity internal constructor(
-    builder: MemberInfoEntityBuilder,
+class MemberEntity internal constructor(
+    builder: MemberEntityBuilder,
 ) : ModifiableBaseEntity() {
 
     @Column(name = "NAME", nullable = false)
@@ -29,21 +29,19 @@ class MemberInfoEntity internal constructor(
         protected set
 }
 
-open class MemberInfoEntityBuilder internal constructor() {
+class MemberEntityBuilder internal constructor() {
     var name: Name? = null
     var email: Email? = null
 
-    internal fun build(): MemberInfoEntity {
+    internal fun build(): MemberEntity {
         requireNotNull(name) { "member.name is required" }
         requireNotNull(email) { "member.email is required" }
-        return MemberInfoEntity(this)
+        return MemberEntity(this)
     }
-
-    companion object Default : MemberInfoEntityBuilder()
 }
 
 /**
- * [MemberInfoEntity]를 생성합니다.
+ * [MemberEntity]를 생성합니다.
  *
  * ```kotlin
  * val member = MemberEntity {
@@ -52,13 +50,13 @@ open class MemberInfoEntityBuilder internal constructor() {
  * }
  * ```
  *
- * @param buildToAction [MemberInfoEntityBuilder]를 빌드합니다.
- * @return [MemberInfoEntity]
+ * @param buildToAction [MemberEntityBuilder]를 빌드합니다.
+ * @return [MemberEntity]
  */
-fun MemberInfoEntity(
-    builder: MemberInfoEntityBuilder = MemberInfoEntityBuilder.Default,
-    buildToAction: MemberInfoEntityBuilder.() -> Unit = {
+fun MemberEntity(
+    builder: MemberEntityBuilder = MemberEntityBuilder(),
+    buildToAction: MemberEntityBuilder.() -> Unit = {
         this.name = Name("테스터")
         this.email = Email("tester@gmail.com")
     },
-): MemberInfoEntity = builder.apply(buildToAction).build()
+): MemberEntity = builder.apply(buildToAction).build()

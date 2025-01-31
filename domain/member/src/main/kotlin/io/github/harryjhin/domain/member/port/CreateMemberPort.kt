@@ -1,39 +1,39 @@
-package io.github.harryjhin.domain.member.adaptor
+package io.github.harryjhin.domain.member.port
 
-import io.github.harryjhin.bootstrap.member.SaveMember
+import io.github.harryjhin.bootstrap.member.CreateMember
 import io.github.harryjhin.bootstrap.member.SaveMemberRequestBuilder
 import io.github.harryjhin.domain.member.extension.toMemberAuthenticationEntity
-import io.github.harryjhin.domain.member.extension.toMemberInfoEntity
+import io.github.harryjhin.domain.member.extension.toMemberEntity
 import io.github.harryjhin.domain.member.property.PasswordProperties
-import io.github.harryjhin.domain.member.repository.MemberAuthenticationRepository
-import io.github.harryjhin.domain.member.repository.MemberInfoRepository
+import io.github.harryjhin.domain.member.repository.MemberAuthenticationJpaRepository
+import io.github.harryjhin.domain.member.repository.MemberInfoJpaRepository
 import io.github.harryjhin.common.member.toEncodedPassword
 import io.github.harryjhin.common.id.toMemberId
+import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.common.member.Member
-import io.github.harryjhin.common.member.SimpleMember
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional
-class SaveMemberImpl(
+class CreateMemberPort(
     private val passwordEncoder: PasswordEncoder,
-    private val memberInfoRepository: MemberInfoRepository,
     private val passwordProperties: PasswordProperties,
-    private val memberAuthenticationRepository: MemberAuthenticationRepository,
-) : SaveMember {
+    private val memberInfoJpaRepository: MemberInfoJpaRepository,
+    private val memberAuthenticationJpaRepository: MemberAuthenticationJpaRepository,
+) : CreateMember {
 
-    override fun invoke(request: SaveMember.Request): Member {
-        val member = request.toMemberInfoEntity()
-            .run(memberInfoRepository::save)
+    override fun invoke(request: CreateMember.Request): MemberCompat {
+        val member = request.toMemberEntity()
+            .run(memberInfoJpaRepository::save)
         val memberAuthentication = request.toMemberAuthenticationEntity(
             memberId = member.id.toMemberId(),
             strength = passwordProperties.strength,
             password = passwordEncoder.encode(request.rawPassword.value).toEncodedPassword()
-        ).run(memberAuthenticationRepository::save)
+        ).run(memberAuthenticationJpaRepository::save)
 
-        return SimpleMember(
+        return Member(
             memberId = member.id.toMemberId(),
             name = member.name,
             email = member.email,
@@ -45,7 +45,7 @@ class SaveMemberImpl(
     override fun invoke(
         builder: SaveMemberRequestBuilder,
         buildToAction: SaveMemberRequestBuilder.() -> Unit
-    ): Member {
+    ): MemberCompat {
         return builder.apply(buildToAction)
             .build()
             .run(::invoke)

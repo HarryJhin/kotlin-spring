@@ -1,9 +1,9 @@
-package io.github.harryjhin.domain.member.adaptor
+package io.github.harryjhin.domain.member.port
 
 import io.github.harryjhin.bootstrap.member.GetAllMember
-import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.domain.member.projection.MemberProjection
-import io.github.harryjhin.domain.member.repository.MemberRepository
+import io.github.harryjhin.domain.member.repository.MemberQuerydslRepository
 import org.springframework.context.annotation.Condition
 import org.springframework.context.annotation.ConditionContext
 import org.springframework.context.annotation.Conditional
@@ -16,24 +16,22 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = true)
-@Conditional(GetAllMemberImpl.GetAllMemberCondition::class)
-class GetAllMemberImpl(
-    private val memberRepository: MemberRepository,
+@Conditional(GetAllMemberPort.GetAllMemberCondition::class)
+class GetAllMemberPort(
+    private val memberQuerydslRepository: MemberQuerydslRepository,
 ) : GetAllMember {
 
-    override fun invoke(): List<Member> {
-        return memberRepository.findAll()
-            .map(MemberProjection::toSimpleMember)
+    override fun invoke(): List<MemberCompat> {
+        return memberQuerydslRepository.findAll()
     }
 
-    override fun invoke(sort: Sort): List<Member> {
-        return memberRepository.findAll(sort)
-            .map(MemberProjection::toSimpleMember)
+    override fun invoke(sort: Sort): List<MemberCompat> {
+        return memberQuerydslRepository.findAll(sort)
     }
 
-    override fun invoke(pageable: Pageable): Page<Member> {
-        return memberRepository.findAll(pageable)
-            .map(MemberProjection::toSimpleMember)
+    override fun invoke(pageable: Pageable): Page<MemberCompat> {
+        return memberQuerydslRepository.findAll(pageable)
+            .map(MemberProjection::toMember)
     }
 
     class GetAllMemberCondition : Condition {

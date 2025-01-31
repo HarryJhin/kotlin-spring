@@ -1,20 +1,33 @@
 package io.github.harryjhin.bootstrap.member
 
 import io.github.harryjhin.common.email.Email
-import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.common.member.RawPassword
 import io.github.harryjhin.common.member.Username
 import io.github.harryjhin.common.member.toUsername
 import io.github.harryjhin.common.name.Name
 
-interface SaveMember {
+/**
+ * ### 회원 생성
+ *
+ * - 회원 생성 요청을 처리합니다.
+ *
+ * ```kotlin
+ * val member: MemberDomain = createMember {
+ *     name = "테스터".toName()
+ *     email = "tester@example.com".toEmail()
+ *     rawPassword = "password".toRawPassword()
+ * }
+ * ```
+ */
+interface CreateMember {
 
-    operator fun invoke(request: Request): Member
+    operator fun invoke(request: Request): MemberCompat
 
     operator fun invoke(
         builder: SaveMemberRequestBuilder = SaveMemberRequestBuilder(),
         buildToAction: SaveMemberRequestBuilder.() -> Unit,
-    ): Member
+    ): MemberCompat
 
     data class Request(
         val name: Name,
@@ -29,7 +42,7 @@ class SaveMemberRequestBuilder internal constructor(
     var email: Email? = null,
     var rawPassword: RawPassword? = null,
 ) {
-    fun build(): SaveMember.Request = SaveMember.Request(
+    fun build(): CreateMember.Request = CreateMember.Request(
         name = requireNotNull(name) { "name is required" },
         email = requireNotNull(email) { "email is required" },
         username = requireNotNull(email?.value?.toUsername()) { "username is required" },

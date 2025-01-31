@@ -2,9 +2,9 @@ package io.github.harryjhin.domain.member
 
 import io.github.harryjhin.bootstrap.member.GetAllMember
 import io.github.harryjhin.bootstrap.member.GetMember
-import io.github.harryjhin.bootstrap.member.SaveMember
+import io.github.harryjhin.bootstrap.member.CreateMember
 import io.github.harryjhin.common.email.toEmail
-import io.github.harryjhin.common.member.Member
+import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.common.member.toRawPassword
 import io.github.harryjhin.common.name.toName
 import jakarta.transaction.Transactional
@@ -30,7 +30,8 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val member: Member? = getMember(memberId = members.first().memberId)
+        val member: MemberCompat? = getMember(memberId = members.first().memberId)
+            ?.also(::println)
 
         // then
         assertNotNull(member)
@@ -41,7 +42,8 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val member: Member? = getMember(username = members.first().username)
+        val member: MemberCompat? = getMember(username = members.first().username)
+            ?.also(::println)
 
         // then
         assertNotNull(member)
@@ -52,7 +54,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results: List<Member> = getAllMember()
+        val results: List<MemberCompat> = getAllMember()
             .onEach(::println)
 
         // then
@@ -67,7 +69,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results: List<Member> = getAllMember(sort = Sort.by(Sort.Order.desc("id")))
+        val results: List<MemberCompat> = getAllMember(sort = Sort.by(Sort.Order.desc("id")))
             .onEach(::println)
 
         // then
@@ -88,7 +90,7 @@ class MemberTest @Autowired constructor(
         val pageable = PageRequest.of(1, 2, Sort.by(Sort.Order.desc("email")))
 
         // when
-        val page: Page<Member> = getAllMember(pageable = pageable)
+        val page: Page<MemberCompat> = getAllMember(pageable = pageable)
             .onEach(::println)
 
         // then
@@ -104,40 +106,40 @@ class MemberTest @Autowired constructor(
     }
 
     companion object {
-        private val members: MutableList<Member> = mutableListOf()
+        private val members: MutableList<MemberCompat> = mutableListOf()
 
         @BeforeAll
         @JvmStatic
         fun beforeAll(
-            @Autowired saveMember: SaveMember,
+            @Autowired createMember: CreateMember,
         ) {
-            saveMember {
+            createMember {
                 this.name = "테스터".toName()
                 this.email = "tester1@gmail.com".toEmail()
                 this.rawPassword = "password".toRawPassword()
             }.run(members::add)
 
-            saveMember {
+            createMember {
                 this.name = "테스터".toName()
                 this.email = "tester2@gmail.com".toEmail()
                 this.rawPassword = "password".toRawPassword()
             }.run(members::add)
 
-            saveMember {
+            createMember {
                 this.name = "테스터".toName()
                 this.email = "tester3@gmail.com".toEmail()
                 this.rawPassword = "password".toRawPassword()
             }.run(members::add)
 
-            saveMember {
+            createMember {
                 this.name = "테스터".toName()
                 this.email = "tester4@gmail.com".toEmail()
                 this.rawPassword = "password".toRawPassword()
             }.run(members::add)
 
-            saveMember {
+            createMember {
                 this.name = "테스터".toName()
-                this.email = "tester4@gmail.com".toEmail()
+                this.email = "tester5@gmail.com".toEmail()
                 this.rawPassword = "password".toRawPassword()
             }.run(members::add)
         }

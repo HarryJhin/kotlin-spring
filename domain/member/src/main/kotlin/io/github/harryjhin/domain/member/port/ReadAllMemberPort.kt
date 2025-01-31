@@ -1,6 +1,6 @@
 package io.github.harryjhin.domain.member.port
 
-import io.github.harryjhin.bootstrap.member.GetAllMember
+import io.github.harryjhin.bootstrap.member.ReadAllMember
 import io.github.harryjhin.common.member.MemberCompat
 import io.github.harryjhin.domain.member.projection.MemberProjection
 import io.github.harryjhin.domain.member.repository.MemberQuerydslRepository
@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = true)
-@Conditional(GetAllMemberPort.GetAllMemberCondition::class)
-class GetAllMemberPort(
+@Conditional(ReadAllMemberPort.GetAllMemberCondition::class)
+class ReadAllMemberPort(
     private val memberQuerydslRepository: MemberQuerydslRepository,
-) : GetAllMember {
+) : ReadAllMember {
 
     override fun invoke(): List<MemberCompat> {
         return memberQuerydslRepository.findAll()
@@ -36,7 +36,7 @@ class GetAllMemberPort(
 
     class GetAllMemberCondition : Condition {
         override fun matches(context: ConditionContext, metadata: AnnotatedTypeMetadata): Boolean {
-            return context.beanFactory!!.getBeanNamesForType(GetAllMember::class.java).isEmpty()
+            return context.beanFactory!!.getBeanNamesForType(ReadAllMember::class.java).isEmpty()
         }
     }
 }

@@ -1,7 +1,7 @@
 package io.github.harryjhin.domain.member
 
-import io.github.harryjhin.bootstrap.member.GetAllMember
-import io.github.harryjhin.bootstrap.member.GetMember
+import io.github.harryjhin.bootstrap.member.ReadAllMember
+import io.github.harryjhin.bootstrap.member.ReadMember
 import io.github.harryjhin.bootstrap.member.CreateMember
 import io.github.harryjhin.common.email.toEmail
 import io.github.harryjhin.common.member.MemberCompat
@@ -21,8 +21,8 @@ import org.springframework.data.domain.Sort
 @Transactional
 @SpringBootTest
 class MemberTest @Autowired constructor(
-    private val getMember: GetMember,
-    private val getAllMember: GetAllMember,
+    private val readMember: ReadMember,
+    private val readAllMember: ReadAllMember,
 ) {
 
     @Test
@@ -30,7 +30,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val member: MemberCompat? = getMember(memberId = members.first().memberId)
+        val member: MemberCompat? = readMember(memberId = members.first().memberId)
             ?.also(::println)
 
         // then
@@ -42,7 +42,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val member: MemberCompat? = getMember(username = members.first().username)
+        val member: MemberCompat? = readMember(username = members.first().username)
             ?.also(::println)
 
         // then
@@ -54,7 +54,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results: List<MemberCompat> = getAllMember()
+        val results: List<MemberCompat> = readAllMember()
             .onEach(::println)
 
         // then
@@ -69,7 +69,7 @@ class MemberTest @Autowired constructor(
         // given
 
         // when
-        val results: List<MemberCompat> = getAllMember(sort = Sort.by(Sort.Order.desc("id")))
+        val results: List<MemberCompat> = readAllMember(sort = Sort.by(Sort.Order.desc("id")))
             .onEach(::println)
 
         // then
@@ -90,7 +90,7 @@ class MemberTest @Autowired constructor(
         val pageable = PageRequest.of(1, 2, Sort.by(Sort.Order.desc("email")))
 
         // when
-        val page: Page<MemberCompat> = getAllMember(pageable = pageable)
+        val page: Page<MemberCompat> = readAllMember(pageable = pageable)
             .onEach(::println)
 
         // then

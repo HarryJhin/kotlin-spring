@@ -1,7 +1,6 @@
 package io.github.harryjhin.domain.member.port
 
 import io.github.harryjhin.bootstrap.member.CreateMember
-import io.github.harryjhin.bootstrap.member.SaveMemberRequestBuilder
 import io.github.harryjhin.domain.member.extension.toMemberAuthenticationEntity
 import io.github.harryjhin.domain.member.extension.toMemberEntity
 import io.github.harryjhin.domain.member.property.PasswordProperties
@@ -40,14 +39,5 @@ class CreateMemberPort(
             username = memberAuthentication.username,
             password = memberAuthentication.password
         )
-    }
-
-    override fun invoke(
-        builder: SaveMemberRequestBuilder,
-        buildToAction: SaveMemberRequestBuilder.() -> Unit
-    ): MemberCompat {
-        return builder.apply(buildToAction)
-            .build()
-            .run(::invoke)
     }
 }

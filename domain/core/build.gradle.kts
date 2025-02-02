@@ -5,6 +5,8 @@ plugins {
 group = "io.github.harryjhin.domain.core"
 
 dependencies {
+    implementation(projects.entity.core)
+
     api(libs.spring.web)
 }
 

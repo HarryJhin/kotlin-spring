@@ -26,6 +26,7 @@ class KotlinSpringQuerydslJpaLibraryPlugin : Plugin<Project> {
 
                 implementation(libs.findLibrary("kotlin.reflect"))
                 implementation(libs.findLibrary("spring.boot.starter.data.jpa"))
+                implementation(libs.findLibrary("spring.retry"))
             }
         }
     }

@@ -8,12 +8,14 @@ h2 = { module = "com.h2database:h2" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api" }
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api" }
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api" }
+jjwt = { module = "io.jsonwebtoken:jjwt", version = "0.12.6" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
 postgresql = { module = "org.postgresql:postgresql" }
-querydsl-jpa = { module = "com.querydsl:querydsl-jpa" }
 querydsl-apt = { module = "com.querydsl:querydsl-apt" }
+querydsl-jpa = { module = "com.querydsl:querydsl-jpa" }
 spring-batch-test = { module = "org.springframework.batch:spring-batch-test" }
 spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
@@ -35,6 +37,7 @@ spring-security-crypto = { module = "org.springframework.security:spring-securit
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 spring-tx = { module = "org.springframework:spring-tx" }
 spring-web = { module = "org.springframework:spring-web" }
+tomcat-embed-core = { module = "org.apache.tomcat.embed:tomcat-embed-core" }
 
 # build-logic
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

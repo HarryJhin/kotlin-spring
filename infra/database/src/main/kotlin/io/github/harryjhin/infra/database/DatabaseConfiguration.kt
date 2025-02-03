@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy
 import javax.sql.DataSource
+import org.springframework.retry.annotation.EnableRetry
 
+@EnableRetry
 @Configuration(proxyBeanMethods = false)
 class DatabaseConfiguration {
 

@@ -1,0 +1,24 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+security:
+  uncheck-paths: /sign-up
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+security:
+  uncheck-paths: /sign-up
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+security:
+  uncheck-paths: /sign-up

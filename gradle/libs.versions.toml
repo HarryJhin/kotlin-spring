@@ -5,6 +5,8 @@ springboot = "3.4.0"
 [libraries]
 embedded-redis = { module = "it.ozimov:embedded-redis", version = "0.7.2" }
 h2 = { module = "com.h2database:h2" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api" }
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api" }

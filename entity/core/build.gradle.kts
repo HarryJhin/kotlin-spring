@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.spring.querydsl.jpa.library)
+    alias(libs.plugins.kotlin.library.test)
 }
 
 group = "io.github.harryjhin.entity.core"
